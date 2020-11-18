@@ -15,7 +15,7 @@ namespace Cresce.Api.Controllers.Authentication
 
         public Task<bool> Verify(ILoginService loginService)
         {
-            return loginService.AreValidCredentials(
+            return loginService.AreCredentialsValid(
                 new Credentials(User, Password)
             );
         }

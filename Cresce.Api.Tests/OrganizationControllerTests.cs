@@ -13,13 +13,10 @@ namespace Cresce.Api.Tests
         [Test]
         public async Task Getting_organization_returns_organization_dto()
         {
-            // Arrange
             var client = GetClient();
 
-            // Act
             var response = await client.GetAsync($"api/v1/myUser/organization");
 
-            // Assert
             response.EnsureSuccessStatusCode();
             var organizations = await response.Content.ReadAsAsync<IEnumerable<Organization>>();
             Assert.That(organizations, Is.Not.Null);
@@ -29,13 +26,10 @@ namespace Cresce.Api.Tests
         [Test]
         public async Task Getting_organization_for_non_existing_user_returns_not_found()
         {
-            // Arrange
             var client = GetClient();
 
-            // Act
             var response = await client.GetAsync($"api/v1/unknown_user/organization");
 
-            // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
         }
     }
