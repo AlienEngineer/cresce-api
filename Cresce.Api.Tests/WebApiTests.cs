@@ -10,6 +10,7 @@ namespace Cresce.Api.Tests
     public abstract class WebApiTests
     {
         private WebApplicationFactory<Startup> _factory;
+        private static HttpClient _client;
 
         [SetUp]
         public void StartFresh()
@@ -27,7 +28,7 @@ namespace Cresce.Api.Tests
 
         protected HttpClient GetClient()
         {
-            return _factory.CreateClient();
+            return _client ??= _factory.CreateClient();
         }
     }
 }
