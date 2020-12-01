@@ -19,8 +19,10 @@ namespace Cresce.Api.Tests
 
             response.EnsureSuccessStatusCode();
             var organizations = await response.Content.ReadAsAsync<IEnumerable<Organization>>();
-            Assert.That(organizations, Is.Not.Null);
-            Assert.That(organizations.Any(), Is.True);
+            CollectionAssert.AreEqual(new []
+            {
+                new Organization { Name = "myOrganization" },
+            }, organizations);
         }
 
         [Test]
