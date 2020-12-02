@@ -7,10 +7,6 @@
 
     <ItemGroup>
       <PackageReference Include="Cresce.Core.InMemory" Version="0.4.0-alpha.12" />
-      <PackageReference Include="GitVersionTask" Version="5.5.1">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
       <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
     </ItemGroup>
