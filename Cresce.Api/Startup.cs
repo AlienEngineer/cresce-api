@@ -1,10 +1,14 @@
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using Cresce.Api.Controllers;
 using Cresce.Core;
+using Cresce.Core.Authentication;
 using Cresce.Core.InMemory;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,7 +29,10 @@ namespace Cresce.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddControllers()
+                .AddControllers(options =>
+                {
+                    options.ModelBinderProviders.Insert(0, new TokenFactoryModelBinderProvider());
+                })
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.IgnoreNullValues = true;
@@ -68,6 +75,35 @@ namespace Cresce.Api
             app.UseAuthorization();
             app.UseAuthentication();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+    }
+
+    public class TokenFactoryModelBinderProvider : IModelBinderProvider
+    {
+        public IModelBinder GetBinder(ModelBinderProviderContext context)
+        {
+            return context.Metadata.ModelType == typeof(AuthorizedUser)
+                ? new TokenFactoryModelBinder(context.Services.GetService<ITokenFactory>())
+                : null;
+        }
+
+        private class TokenFactoryModelBinder : IModelBinder
+        {
+            private readonly ITokenFactory _tokenFactory;
+
+            public TokenFactoryModelBinder(ITokenFactory tokenFactory)
+            {
+                _tokenFactory = tokenFactory;
+            }
+
+            public Task BindModelAsync(ModelBindingContext bindingContext)
+            {
+                bindingContext.Result = ModelBindingResult.Success(
+                    bindingContext.HttpContext.Request.GetUser(_tokenFactory)
+                );
+
+                return Task.CompletedTask;
+            }
         }
     }
 }

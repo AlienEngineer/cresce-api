@@ -1,6 +1,5 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Cresce.Core.Organizations;
@@ -8,31 +7,42 @@ using NUnit.Framework;
 
 namespace Cresce.Api.Tests
 {
-    public class OrganizationControllerTests : WebApiTests
+    public class OrganizationsControllerTests : WebApiTests
     {
         [Test]
         public async Task Getting_organization_returns_organization_dto()
         {
-            var client = GetClient();
+            var client = await GetAuthenticatedClient();
 
-            var response = await client.GetAsync($"api/v1/myUser/organization");
+            var response = await client.GetAsync("api/v1/organization");
 
-            response.EnsureSuccessStatusCode();
-            var organizations = await response.Content.ReadAsAsync<IEnumerable<Organization>>();
-            CollectionAssert.AreEqual(new []
-            {
-                new Organization { Name = "myOrganization" },
-            }, organizations);
+            await ResponseAssert.ListAreEquals(
+                new [] { new Organization { Name = "myOrganization" } },
+                response
+            );
+        }
+    }
+
+    public static class ResponseAssert
+    {
+        public static void AreEquals<T>(T expect, HttpResponseMessage response)
+        {
+
         }
 
-        [Test]
-        public async Task Getting_organization_for_non_existing_user_returns_not_found()
+        public static async Task ListAreEquals<T>(T expect, HttpResponseMessage response)
+            where T: IEnumerable
         {
-            var client = GetClient();
+            CollectionAssert.AreEqual(expect, await response.GetContent<T>());
+        }
+    }
 
-            var response = await client.GetAsync($"api/v1/unknown_user/organization");
-
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
+    public static class ResponseExtensions
+    {
+        public static Task<T> GetContent<T>(this HttpResponseMessage response)
+        {
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadAsAsync<T>();
         }
     }
 }

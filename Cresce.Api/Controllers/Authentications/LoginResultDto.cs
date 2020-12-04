@@ -1,6 +1,6 @@
-namespace Cresce.Api.Controllers.Authentication
+namespace Cresce.Api.Controllers.Authentications
 {
-    public class LoginResultDto
+    public record LoginResultDto
     {
         public string OrganizationUrl { get; set; }
         public string Token { get; set; }
