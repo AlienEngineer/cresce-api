@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Cresce.Core.Organizations;
 using NUnit.Framework;
 
-namespace Cresce.Api.Tests
+namespace Cresce.Api.Tests.Controllers
 {
     public class OrganizationsControllerTests : WebApiTests
     {

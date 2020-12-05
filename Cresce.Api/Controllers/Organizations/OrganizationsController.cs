@@ -8,12 +8,12 @@ namespace Cresce.Api.Controllers.Organizations
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class OrganizationController : ControllerBase
+    public class OrganizationsController : ControllerBase
     {
         private readonly IOrganizationService _service;
         private readonly ITokenFactory _tokenFactory;
 
-        public OrganizationController(IOrganizationService service, ITokenFactory tokenFactory)
+        public OrganizationsController(IOrganizationService service, ITokenFactory tokenFactory)
         {
             _service = service;
             _tokenFactory = tokenFactory;
