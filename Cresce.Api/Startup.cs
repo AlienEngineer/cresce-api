@@ -1,14 +1,14 @@
+using System.Net.Http;
 using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using Cresce.Api.Controllers;
 using Cresce.Core;
 using Cresce.Core.Authentication;
 using Cresce.Core.InMemory;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,7 +31,7 @@ namespace Cresce.Api
             services
                 .AddControllers(options =>
                 {
-                    options.ModelBinderProviders.Insert(0, new TokenFactoryModelBinderProvider());
+                    options.ModelBinderProviders.Insert(0, new AuthorizedUserBinderProvider());
                 })
                 .AddJsonOptions(options =>
                 {
@@ -39,10 +39,18 @@ namespace Cresce.Api
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                     options.JsonSerializerOptions.WriteIndented = true;
                 });
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new HttpExceptionFilter());
+                options.Filters.Add(new UnauthorizedExceptionFilter());
+            });
+
             ServicesConfiguration.RegisterServices(services);
             GatewaysConfiguration.RegisterServices(services);
 
-            services.AddAuthentication(x =>
+            services
+                .AddAuthentication(x =>
                 {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -58,8 +66,7 @@ namespace Cresce.Api
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
-                })
-                ;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,32 +85,26 @@ namespace Cresce.Api
         }
     }
 
-    public class TokenFactoryModelBinderProvider : IModelBinderProvider
+    public class HttpExceptionFilter : ExceptionFilterAttribute
     {
-        public IModelBinder GetBinder(ModelBinderProviderContext context)
+        public override void OnException(ExceptionContext context)
         {
-            return context.Metadata.ModelType == typeof(AuthorizedUser)
-                ? new TokenFactoryModelBinder(context.Services.GetService<ITokenFactory>())
-                : null;
+            base.OnException(context);
+            if (!(context.Exception is HttpRequestException)) return;
+
+            context.Result = new UnauthorizedResult();
+            context.ExceptionHandled = true;
         }
-
-        private class TokenFactoryModelBinder : IModelBinder
+    }
+    public class UnauthorizedExceptionFilter : ExceptionFilterAttribute
+    {
+        public override void OnException(ExceptionContext context)
         {
-            private readonly ITokenFactory _tokenFactory;
+            base.OnException(context);
+            if (!(context.Exception is UnauthorizedException)) return;
 
-            public TokenFactoryModelBinder(ITokenFactory tokenFactory)
-            {
-                _tokenFactory = tokenFactory;
-            }
-
-            public Task BindModelAsync(ModelBindingContext bindingContext)
-            {
-                bindingContext.Result = ModelBindingResult.Success(
-                    bindingContext.HttpContext.Request.GetUser(_tokenFactory)
-                );
-
-                return Task.CompletedTask;
-            }
+            context.Result = new UnauthorizedResult();
+            context.ExceptionHandled = true;
         }
     }
 }

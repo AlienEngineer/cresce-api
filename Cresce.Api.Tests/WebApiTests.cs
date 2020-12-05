@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Cresce.Core.Authentication;
 using Cresce.Core.InMemory;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -12,7 +13,6 @@ namespace Cresce.Api.Tests
     public abstract class WebApiTests
     {
         private WebApplicationFactory<Startup> _factory;
-        private static HttpClient _client;
 
         [SetUp]
         public void StartFresh()
@@ -30,7 +30,18 @@ namespace Cresce.Api.Tests
 
         protected HttpClient GetClient()
         {
-            return _client ??= _factory.CreateClient();
+            return _factory.CreateClient();
+        }
+
+        protected HttpClient GetExpiredClient()
+        {
+            var client = GetClient();
+
+            var token = _factory.Services.GetService<ITokenFactory>()!.MakeInvalidToken();
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.ToString());
+
+            return client;
         }
 
         protected async Task<HttpClient> GetAuthenticatedClient()

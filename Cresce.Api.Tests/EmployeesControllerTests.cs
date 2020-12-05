@@ -7,11 +7,11 @@ namespace Cresce.Api.Tests
     public class EmployeesControllerTests : WebApiTests
     {
         [Test]
-        public async Task Getting_organization_returns_organization_dto()
+        public async Task Getting_employees_returns_employees_for_given_organization()
         {
-            var client = GetClient();
+            var client = await GetAuthenticatedClient();
 
-            var response = await client.GetAsync($"api/v1/myUser/organization/myOrganization/employees");
+            var response = await client.GetAsync($"api/v1/organization/myOrganization/employees");
 
             await ResponseAssert.ListAreEquals(
                 new[] {new Employee {Name = "myEmployee"}},
