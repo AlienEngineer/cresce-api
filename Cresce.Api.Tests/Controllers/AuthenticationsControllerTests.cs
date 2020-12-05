@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Cresce.Api.Controllers.Authentications;
 using NUnit.Framework;
 
-namespace Cresce.Api.Tests
+namespace Cresce.Api.Tests.Controllers
 {
     public class AuthenticationsControllerTests : WebApiTests
     {
@@ -17,7 +17,7 @@ namespace Cresce.Api.Tests
             var loginResult = await client.Login();
 
             Assert.That(loginResult, Is.Not.Null);
-            Assert.That(loginResult.OrganizationUrl, Is.EqualTo("api/v1/organization/"));
+            Assert.That(loginResult.OrganizationUrl, Is.EqualTo("api/v1/organizations/"));
             Assert.That(loginResult.Token, Is.Not.Null);
         }
 
