@@ -37,11 +37,16 @@ namespace Cresce.Api.Tests
         {
             var client = GetClient();
 
-            var token = _factory.Services.GetService<ITokenFactory>()!.MakeInvalidToken();
+            var token = MakeTokenFactory()!.MakeInvalidToken();
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.ToString());
 
             return client;
+        }
+
+        protected ITokenFactory MakeTokenFactory()
+        {
+            return _factory.Services.GetService<ITokenFactory>();
         }
 
         protected async Task<HttpClient> GetAuthenticatedClient()
