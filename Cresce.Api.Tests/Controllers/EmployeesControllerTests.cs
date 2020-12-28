@@ -1,6 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
-using Cresce.Core.Employees;
+using Cresce.Api.Models;
 using NUnit.Framework;
 
 namespace Cresce.Api.Tests.Controllers
@@ -15,7 +15,15 @@ namespace Cresce.Api.Tests.Controllers
             var response = await client.GetAsync($"api/v1/organization/myOrganization/employees");
 
             await ResponseAssert.ListAreEquals(
-                new[] {new Employee {Name = "Ricardo Nunes"}},
+                new[]
+                {
+                    new EmployeeModel
+                    {
+                        Name = "Ricardo Nunes",
+                        Title = "Engineer",
+                        Image = GetSampleImage().ToBase64()
+                    }
+                },
                 response
             );
         }
@@ -29,6 +37,5 @@ namespace Cresce.Api.Tests.Controllers
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
         }
-
     }
 }

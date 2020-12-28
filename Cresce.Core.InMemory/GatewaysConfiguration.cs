@@ -43,6 +43,7 @@ namespace Cresce.Core.InMemory
                         new()
                         {
                             Name = "Ricardo Nunes",
+                            Title = "Engineer",
                             Image = GetSampleImage()
                         }
                     }

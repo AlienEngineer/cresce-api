@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Cresce.Core;
 using Cresce.Core.Authentication;
 using Cresce.Core.InMemory;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -26,6 +27,11 @@ namespace Cresce.Api.Tests
         protected virtual void OverrideServices(IServiceCollection services)
         {
             GatewaysConfiguration.RegisterServices(services);
+        }
+
+        protected Image GetSampleImage()
+        {
+            return GatewaysConfiguration.GetSampleImage();
         }
 
         protected HttpClient GetClient()
