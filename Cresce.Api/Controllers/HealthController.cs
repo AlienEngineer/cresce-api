@@ -9,13 +9,12 @@ namespace Cresce.Api.Controllers
     public class HealthController : ControllerBase
     {
         [HttpGet]
-        public HealthDto Get()
-        {
-            return new HealthDto
+        public HealthDto Get() =>
+            new()
             {
                 ServerTime = DateTime.UtcNow,
-                Health = HealthStatus.Healthy
+                Health = HealthStatus.Healthy,
+                ApiVersion = new Version(0, 0, 1).ToString()
             };
-        }
     }
 }

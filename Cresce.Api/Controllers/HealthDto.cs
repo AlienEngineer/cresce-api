@@ -3,9 +3,10 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace Cresce.Api.Controllers
 {
-    public class HealthDto
+    public record HealthDto
     {
-        public DateTime ServerTime { get; set; }
-        public HealthStatus Health { get; set; }
+        public DateTime ServerTime { get; init; }
+        public HealthStatus Health { get; init; }
+        public string ApiVersion { get; init; }
     }
 }
