@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "kubernetesazurecluster-9f95"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "kubernetesazurecluster-9f95"
+  template:
+    metadata:
+      labels:
+        app: "kubernetesazurecluster-9f95"
+    spec:
+      containers:
+        - name: "kubernetesazurecluster-9f95"
+          image: "crescecontainerregistry.azurecr.io/kubernetesazurecluster"
+          ports:
+          - containerPort: 80

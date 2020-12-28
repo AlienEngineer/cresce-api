@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: "kubernetesazurecluster-9f95"
+    labels:
+        app: "kubernetesazurecluster-9f95"
+spec:
+    type: ClusterIP
+    ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+    selector:
+        app: "kubernetesazurecluster-9f95"
