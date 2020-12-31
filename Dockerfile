@@ -19,4 +19,9 @@ WORKDIR /app
 
 COPY --from=build-env /app/out .
 
+RUN apt-get update -y && apt-get upgrade -y && apt-get install curl -y
+
+HEALTHCHECK --interval=5s --timeout=3s --retries=5 \
+  CMD curl http://localhost/ || exit 1
+
 ENTRYPOINT ["dotnet", "Cresce.Api.dll"]
