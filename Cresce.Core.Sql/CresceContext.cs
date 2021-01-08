@@ -12,9 +12,9 @@ namespace Cresce.Core.Sql
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserModel>();
-            modelBuilder.Entity<OrganizationModel>();
-            modelBuilder.Entity<EmployeeModel>();
+            modelBuilder.Entity<UserModel>().ToTable("Users");
+            modelBuilder.Entity<OrganizationModel>().ToTable("Organizations");
+            modelBuilder.Entity<EmployeeModel>().ToTable("Employees");
         }
     }
 }
