@@ -32,7 +32,7 @@ jobs:
     - name: edit connection string
       uses: benday-inc/edit-dbconnstr-in-appsettings@main
       with:
-        pathtosettingsfile: '${{ github.workspace }}/Cresce.api/appsettings.json'
+        pathtosettingsfile: '${{ github.workspace }}/appsettings.json'
         name: "default"
         connectionstring: "Server=cresce.cmt8hl8spkdk.eu-west-2.rds.amazonaws.com;Database=CresceDemo;User Id=${{ secrets.SQL_USER }};Password=${{ secrets.SQL_PASSWORD }};"
     
