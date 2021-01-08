@@ -24,7 +24,7 @@ namespace Cresce.Api.Tests
         [Test]
         public void Getting_user_from_request_without_authorization_header_throws()
         {
-            var request = MakeHttpRequest(null);
+            var request = MakeHttpRequest();
 
             Assert.Catch<HttpRequestException>(() => request.GetUser(MakeTokenFactory()));
         }
@@ -38,7 +38,7 @@ namespace Cresce.Api.Tests
             Assert.Catch<HttpRequestException>(() => request.GetUser(MakeTokenFactory()));
         }
 
-        private static HttpRequest MakeHttpRequest(string bearerToken)
+        private static HttpRequest MakeHttpRequest(string bearerToken = "")
         {
             var mock = new Mock<HttpRequest>();
             mock.Setup(e => e.Headers)

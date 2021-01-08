@@ -9,7 +9,7 @@ namespace Cresce.Core.Tests
 {
     public class ServicesTests<T>
     {
-        private ServiceProvider _provider;
+        private ServiceProvider _provider = null!;
 
         [SetUp]
         public void Setup()

@@ -13,7 +13,7 @@ namespace Cresce.Api.Tests
 {
     public abstract class WebApiTests
     {
-        private WebApplicationFactory<Startup> _factory;
+        private WebApplicationFactory<Startup> _factory = null!;
 
         [SetUp]
         public void StartFresh()
@@ -52,7 +52,7 @@ namespace Cresce.Api.Tests
 
         protected ITokenFactory MakeTokenFactory()
         {
-            return _factory.Services.GetService<ITokenFactory>();
+            return _factory.Services.GetService<ITokenFactory>()!;
         }
 
         protected async Task<HttpClient> GetAuthenticatedClient()
