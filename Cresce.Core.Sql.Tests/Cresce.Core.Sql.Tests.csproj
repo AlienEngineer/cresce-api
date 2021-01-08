@@ -19,7 +19,6 @@
 
     <ItemGroup>
       <Folder Include="Employees" />
-      <Folder Include="Organizations" />
     </ItemGroup>
 
 </Project>

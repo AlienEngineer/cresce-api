@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Cresce.Core.Tests")]
+[assembly: InternalsVisibleTo("Cresce.Core.Sql.Tests")]
