@@ -17,8 +17,4 @@
       <ProjectReference Include="..\Cresce.Core.Sql\Cresce.Core.Sql.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Employees" />
-    </ItemGroup>
-
 </Project>

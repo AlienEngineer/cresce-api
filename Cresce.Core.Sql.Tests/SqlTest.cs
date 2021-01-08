@@ -53,7 +53,8 @@ namespace Cresce.Core.Sql.Tests
             {
                 Id = "Ricardo Nunes",
                 Title = "Engineer",
-                Image = GetSampleImage()
+                Image = GetSampleImage(),
+                OrganizationId = "myOrganization"
             });
 
             context.SaveChanges();
