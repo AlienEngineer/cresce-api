@@ -5,6 +5,7 @@ namespace Cresce.Core.Sql.Users
     internal class UserModel
     {
         public string Id { get; set; }
+        public string Password { get; set; }
 
         public User ToUser()
         {
@@ -12,9 +13,11 @@ namespace Cresce.Core.Sql.Users
             {
                 return new UnknownUser();
             }
+
             return new AdminUser
             {
-                Id = Id
+                Id = Id,
+                Password = Password
             };
         }
     }

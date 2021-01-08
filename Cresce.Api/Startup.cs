@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Cresce.Core;
 using Cresce.Core.Authentication;
-using Cresce.Core.InMemory;
+using Cresce.Core.Sql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,12 +16,13 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace System.Runtime.CompilerServices
 {
-    public class IsExternalInit{}
+    public class IsExternalInit
+    {
+    }
 }
 
 namespace Cresce.Api
 {
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -52,19 +53,9 @@ namespace Cresce.Api
                 options.Filters.Add(new UnauthorizedExceptionFilter());
             });
 
-            var settings = new Settings(Configuration);
-
+            GatewaysConfiguration.RegisterServices(services);
             ServicesConfiguration.RegisterServices(services);
-
-            if (settings.ConnectionString == "inmemory")
-            {
-                GatewaysConfiguration.RegisterServices(services);
-            }
-            else
-            {
-                Core.Sql.GatewaysConfiguration.RegisterDbContext(services, settings.ConnectionString);
-                Core.Sql.GatewaysConfiguration.RegisterServices(services);
-            }
+            //GatewaysConfiguration.RegisterDbContext(services, settings.ConnectionString);
 
             services
                 .AddAuthentication(x =>
@@ -113,6 +104,7 @@ namespace Cresce.Api
             context.ExceptionHandled = true;
         }
     }
+
     public class UnauthorizedExceptionFilter : ExceptionFilterAttribute
     {
         public override void OnException(ExceptionContext context)

@@ -1,7 +1,10 @@
+using System.Data.Common;
 using Cresce.Core.Authentication;
-using Cresce.Core.Employees;
-using Cresce.Core.InMemory;
+using Cresce.Core.Sql;
 using Cresce.Core.Users;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
@@ -10,6 +13,7 @@ namespace Cresce.Core.Tests
     public class ServicesTests<T>
     {
         private ServiceProvider _provider = null!;
+        private DbConnection _connection = null!;
 
         [SetUp]
         public void Setup()
@@ -17,15 +21,36 @@ namespace Cresce.Core.Tests
             var serviceCollection = new ServiceCollection();
             GatewaysConfiguration.RegisterServices(serviceCollection);
             ServicesConfiguration.RegisterServices(serviceCollection);
+
+            serviceCollection.AddDbContext<CresceContext>(builder =>
+            {
+                builder.UseSqlite(CreateInMemoryDatabase());
+                _connection = RelationalOptionsExtension.Extract(builder.Options).Connection;
+            }, ServiceLifetime.Transient);
+
             _provider = serviceCollection.BuildServiceProvider();
+
+            GetService<CresceContext>().Seed();
         }
 
-        protected Image GetSampleImage() => GatewaysConfiguration.GetSampleImage();
-
-        protected T MakeService()
+        [TearDown]
+        public void DisposeConnection()
         {
-            return GetService<T>();
+            _connection.Dispose();
         }
+
+        private static DbConnection CreateInMemoryDatabase()
+        {
+            var connection = new SqliteConnection("Filename=:memory:");
+
+            connection.Open();
+
+            return connection;
+        }
+
+        protected Image GetSampleImage() => new(GetService<CresceContext>().GetSampleImage());
+
+        protected T MakeService() => GetService<T>();
 
         protected AuthorizedUser GetAuthorizedUser()
         {
@@ -37,10 +62,7 @@ namespace Cresce.Core.Tests
 
         protected AuthorizedUser GetUnknownUser()
         {
-            return GetService<ITokenFactory>().MakeToken(new BasicUser
-            {
-                Id = "some unknown user"
-            });
+            return GetService<ITokenFactory>().MakeToken(new UnknownUser());
         }
 
         protected AuthorizedUser GetExpiredUser()

@@ -35,29 +35,7 @@ namespace Cresce.Core.Sql.Tests
         private void Seed()
         {
             using var context = GetService<CresceContext>();
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
-
-            context.Add(new UserModel
-            {
-                Id = "myUser"
-            });
-
-            context.Add(new OrganizationModel
-            {
-                Id = "myOrganization",
-                UserId = "myUser"
-            });
-
-            context.Add(new EmployeeModel
-            {
-                Id = "Ricardo Nunes",
-                Title = "Engineer",
-                Image = GetSampleImage(),
-                OrganizationId = "myOrganization"
-            });
-
-            context.SaveChanges();
+            context.Seed();
         }
 
         public static string GetSampleImage() =>

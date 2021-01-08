@@ -17,6 +17,7 @@ namespace Cresce.Core.Sql.Tests.Users
             Assert.That(user, Is.EqualTo(new AdminUser
             {
                 Id = "myUser",
+                Password = "myPass"
             }));
         }
 

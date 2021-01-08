@@ -23,7 +23,7 @@ namespace Cresce.Core.Sql
             serviceCollection.AddDbContext<CresceContext>(builder =>
             {
                 builder.UseSqlServer(connectionString);
-            });
+            }, ServiceLifetime.Transient);
         }
 
         private static void RegisterEmployeeGateways(IServiceCollection serviceCollection)
