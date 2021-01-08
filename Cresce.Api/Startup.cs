@@ -53,7 +53,7 @@ namespace Cresce.Api
 
             GatewaysConfiguration.RegisterServices(services);
             ServicesConfiguration.RegisterServices(services);
-            //GatewaysConfiguration.RegisterDbContext(services, settings.ConnectionString);
+            GatewaysConfiguration.RegisterDbContext(services, new Settings(Configuration).ConnectionString);
 
             services
                 .AddAuthentication(x =>
