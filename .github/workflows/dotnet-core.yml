@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ master, develop ]
 
+
+
 jobs:
   build:
 
@@ -26,7 +28,14 @@ jobs:
         
     - name: Install dependencies
       run: dotnet restore
-      
+    
+    - name: edit connection string
+      uses: benday-inc/edit-dbconnstr-in-appsettings@main
+      with:
+        pathtosettingsfile: '${{ github.workspace }}/Cresce.Api/appsettings.json'
+        name: "default"
+        connectionstring: "Server=cresce.cmt8hl8spkdk.eu-west-2.rds.amazonaws.com;Database=CresceDemo;User Id=${{ secrets.SQL_USER }};Password=${{ secrets.SQL_PASSWORD }};"
+    
     - name: Build
       run: dotnet build --configuration Release --no-restore
       
