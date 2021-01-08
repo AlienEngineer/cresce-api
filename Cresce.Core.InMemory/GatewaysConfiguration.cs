@@ -25,7 +25,7 @@ namespace Cresce.Core.InMemory
             var dictionary = new Dictionary<string, object>
             {
                 {
-                    "user_myUser", new BasicUser
+                    "user_myUser", new AdminUser
                     {
                         Id = "myUser",
                         Password = "myPass"

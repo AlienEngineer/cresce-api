@@ -20,7 +20,7 @@ namespace Cresce.Core.Authentication
 
         private User GetCredentialsUser()
         {
-            return new BasicUser()
+            return new AdminUser
             {
                 Id = UserId,
                 Password = Password

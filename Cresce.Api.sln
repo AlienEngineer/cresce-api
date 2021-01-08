@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cresce.Core.InMemory", "Cre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cresce.Core.Tests", "Cresce.Core.Tests\Cresce.Core.Tests.csproj", "{F38575E3-908A-4A04-A7FE-3D0A28C91468}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cresce.Core.Sql", "Cresce.Core.Sql\Cresce.Core.Sql.csproj", "{0E004BD7-4260-4E20-A600-12D8475D8D3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cresce.Core.Sql.Tests", "Cresce.Core.Sql.Tests\Cresce.Core.Sql.Tests.csproj", "{C360599C-E496-4237-A2A9-4E49558B546E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{F38575E3-908A-4A04-A7FE-3D0A28C91468}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F38575E3-908A-4A04-A7FE-3D0A28C91468}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F38575E3-908A-4A04-A7FE-3D0A28C91468}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E004BD7-4260-4E20-A600-12D8475D8D3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E004BD7-4260-4E20-A600-12D8475D8D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E004BD7-4260-4E20-A600-12D8475D8D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E004BD7-4260-4E20-A600-12D8475D8D3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C360599C-E496-4237-A2A9-4E49558B546E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C360599C-E496-4237-A2A9-4E49558B546E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C360599C-E496-4237-A2A9-4E49558B546E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C360599C-E496-4237-A2A9-4E49558B546E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
