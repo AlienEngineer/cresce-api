@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Cresce.Core.InMemory\Cresce.Core.InMemory.csproj" />
+      <ProjectReference Include="..\Cresce.Core.Sql\Cresce.Core.Sql.csproj" />
       <ProjectReference Include="..\Cresce.Core\Cresce.Core.csproj" />
     </ItemGroup>
 

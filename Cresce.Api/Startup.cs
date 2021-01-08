@@ -52,8 +52,19 @@ namespace Cresce.Api
                 options.Filters.Add(new UnauthorizedExceptionFilter());
             });
 
+            var settings = new Settings(Configuration);
+
             ServicesConfiguration.RegisterServices(services);
-            GatewaysConfiguration.RegisterServices(services);
+
+            if (settings.ConnectionString == "inmemory")
+            {
+                GatewaysConfiguration.RegisterServices(services);
+            }
+            else
+            {
+                Core.Sql.GatewaysConfiguration.RegisterDbContext(services, settings.ConnectionString);
+                Core.Sql.GatewaysConfiguration.RegisterServices(services);
+            }
 
             services
                 .AddAuthentication(x =>

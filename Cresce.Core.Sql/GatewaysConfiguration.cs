@@ -18,12 +18,11 @@ namespace Cresce.Core.Sql
             RegisterEmployeeGateways(serviceCollection);
         }
 
-        public static void RegisterDbContext(IServiceCollection serviceCollection)
+        public static void RegisterDbContext(IServiceCollection serviceCollection, string connectionString)
         {
             serviceCollection.AddDbContext<CresceContext>(builder =>
             {
-                builder.UseSqlServer(
-                    "Server=cresce.cmt8hl8spkdk.eu-west-2.rds.amazonaws.com;Database=CresceDemo;Trusted_Connection=True;");
+                builder.UseSqlServer(connectionString);
             });
         }
 
