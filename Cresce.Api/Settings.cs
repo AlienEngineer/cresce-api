@@ -13,5 +13,7 @@ namespace Cresce.Api
         }
 
         public string ConnectionString => _configuration.GetConnectionString("default");
+
+        public string Version => _configuration["Version"];
     }
 }

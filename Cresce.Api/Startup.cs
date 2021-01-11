@@ -51,6 +51,7 @@ namespace Cresce.Api
                 options.Filters.Add(new UnauthorizedExceptionFilter());
             });
 
+            services.AddSingleton(_ => new Settings(Configuration));
             GatewaysConfiguration.RegisterServices(services);
             ServicesConfiguration.RegisterServices(services);
             GatewaysConfiguration.RegisterDbContext(services, new Settings(Configuration).ConnectionString);

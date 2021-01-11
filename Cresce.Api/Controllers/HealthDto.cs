@@ -8,5 +8,7 @@ namespace Cresce.Api.Controllers
         public DateTime ServerTime { get; init; }
         public HealthStatus Health { get; init; }
         public string ApiVersion { get; init; }
+        public string ConnectionString { get; set; }
+        public string? EnvConnectionString { get; set; }
     }
 }
