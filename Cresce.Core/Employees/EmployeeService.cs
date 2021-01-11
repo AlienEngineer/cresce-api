@@ -8,9 +8,7 @@ namespace Cresce.Core.Employees
     {
         private readonly IGetEmployeesGateway _gateway;
 
-        public EmployeeService(
-            IGetEmployeesGateway gateway
-        )
+        public EmployeeService(IGetEmployeesGateway gateway)
         {
             _gateway = gateway;
         }

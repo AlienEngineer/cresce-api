@@ -31,22 +31,20 @@ namespace Cresce.Api.Tests
 
         private void OverrideServices(IServiceCollection services)
         {
-            services.AddTransient(_ =>
+            services.AddScoped(_ =>
             {
                 _connection = CreateInMemoryDatabase();
                 var options = new DbContextOptionsBuilder<CresceContext>()
                     .UseSqlite(_connection)
                     .Options;
 
-                new CresceContext(options).Seed();
+                var context = new CresceContext(options);
+                context.DeleteDatabase();
+                context.Seed();
 
                 return options;
             });
-            services.AddDbContext<CresceContext>(builder =>
-            {
-                builder.UseSqlite(CreateInMemoryDatabase());
-                _connection = RelationalOptionsExtension.Extract(builder.Options).Connection;
-            }, ServiceLifetime.Transient);
+            services.AddDbContext<CresceContext>();
         }
 
         private static DbConnection CreateInMemoryDatabase()
@@ -81,12 +79,8 @@ namespace Cresce.Api.Tests
 
         protected ITokenFactory MakeTokenFactory()
         {
-            return GetService<ITokenFactory>();
-        }
-
-        protected T GetService<T>()
-        {
-            return _factory.Services.GetService<T>()!;
+            var scope = _factory.Services.CreateScope();
+            return scope.ServiceProvider.GetService<ITokenFactory>()!;
         }
 
         protected async Task<HttpClient> GetAuthenticatedClient()

@@ -19,9 +19,13 @@ namespace Cresce.Core.Sql
             modelBuilder.Entity<EmployeeModel>().ToTable("Employees");
         }
 
-        public void Seed()
+        public void DeleteDatabase()
         {
             Database.EnsureDeleted();
+        }
+
+        public void Seed()
+        {
             Database.EnsureCreated();
 
             Add(new UserModel {Id = "myUser", Password = "myPass"});
@@ -30,7 +34,7 @@ namespace Cresce.Core.Sql
             {
                 Id = "Ricardo Nunes",
                 Title = "Engineer",
-                Image = GetSampleImage(),
+                Image = new Image(GetSampleImage()).ToByteArray(),
                 OrganizationId = "myOrganization"
             });
 

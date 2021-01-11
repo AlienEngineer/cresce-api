@@ -29,7 +29,7 @@ namespace Cresce.Core.Sql.Employees
     {
         public string Id { get; set; }
         public string Title { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
         public string OrganizationId { get; set; }
 
         public Employee ToEmployee()

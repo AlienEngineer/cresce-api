@@ -81,6 +81,9 @@ namespace Cresce.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                // var scope = app.ApplicationServices.CreateScope();
+                // scope.ServiceProvider.GetService<CresceContext>()!.Seed();
             }
 
             app.UseHttpsRedirection();

@@ -8,10 +8,12 @@ namespace Cresce.Api
 {
     public class AuthorizedUserBinderProvider : IModelBinderProvider
     {
-        public IModelBinder GetBinder(ModelBinderProviderContext context)
+        public IModelBinder? GetBinder(ModelBinderProviderContext context)
         {
+            var scope = context.Services.CreateScope();
+
             return context.Metadata.ModelType == typeof(AuthorizedUser)
-                ? new AuthorizedUserBinder(context.Services.GetService<ITokenFactory>())
+                ? new AuthorizedUserBinder(scope.ServiceProvider.GetService<ITokenFactory>()!)
                 : null;
         }
 
