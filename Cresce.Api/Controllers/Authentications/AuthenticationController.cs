@@ -24,7 +24,7 @@ namespace Cresce.Api.Controllers.Authentications
 
             return new OkObjectResult(new LoginResultDto
             {
-                OrganizationUrl = $"api/v1/organizations/",
+                OrganizationUrl = "api/v1/organizations/",
                 Token = user.ToString()
             });
         }

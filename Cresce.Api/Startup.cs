@@ -1,12 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using System.Xml;
 using Cresce.Core;
 using Cresce.Core.Authentication;
 using Cresce.Core.Sql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
@@ -49,6 +57,7 @@ namespace Cresce.Api
             {
                 options.Filters.Add(new HttpExceptionFilter());
                 options.Filters.Add(new UnauthorizedExceptionFilter());
+                options.Filters.Add(new LogRequestFilter());
             });
 
             services.AddSingleton(_ => new Settings(Configuration));
@@ -92,6 +101,28 @@ namespace Cresce.Api
             app.UseAuthorization();
             app.UseAuthentication();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+    }
+
+    public class LogRequestFilter : ActionFilterAttribute
+    {
+        private const int ReadChunkBufferLength = 4096;
+
+
+        public override void OnResultExecuted(ResultExecutedContext context)
+        {
+            var httpRequest = context.HttpContext.Request;
+            Console.WriteLine($"{httpRequest.Method} {httpRequest.Path}");
+
+            var httpResponse = context.HttpContext.Response;
+            Console.WriteLine($"{httpResponse.StatusCode}");
+
+
+            if (context.Result is ObjectResult json)
+            {
+                Console.WriteLine(JsonSerializer.Serialize(json.Value));
+            }
+
         }
     }
 

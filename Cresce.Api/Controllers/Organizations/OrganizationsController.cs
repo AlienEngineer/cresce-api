@@ -11,12 +11,10 @@ namespace Cresce.Api.Controllers.Organizations
     public class OrganizationsController : ControllerBase
     {
         private readonly IOrganizationService _service;
-        private readonly ITokenFactory _tokenFactory;
 
-        public OrganizationsController(IOrganizationService service, ITokenFactory tokenFactory)
+        public OrganizationsController(IOrganizationService service)
         {
             _service = service;
-            _tokenFactory = tokenFactory;
         }
 
         [HttpGet]
