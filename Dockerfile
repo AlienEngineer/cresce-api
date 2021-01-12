@@ -24,4 +24,6 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install curl -y
 HEALTHCHECK --interval=5s --timeout=3s --retries=5 \
   CMD curl http://localhost/ || exit 1
 
+RUN sed -i 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=1/g' /etc/ssl/openssl.cnf
+
 ENTRYPOINT ["dotnet", "Cresce.Api.dll"]
