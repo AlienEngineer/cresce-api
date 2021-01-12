@@ -8,7 +8,7 @@ namespace Cresce.Api.Controllers
 {
     public static class HttpContextExtensions
     {
-        public static AuthorizedUser GetUser(this HttpRequest request, ITokenFactory tokenFactory)
+        public static AuthorizedUser GetUser(this HttpRequest request, IAuthorizedUserFactory authorizedUserFactory)
         {
             if (HasInvalidHeader(request))
             {
@@ -17,7 +17,7 @@ namespace Cresce.Api.Controllers
 
             var token = ExtractToken(request);
 
-            return tokenFactory.Decode(token);
+            return authorizedUserFactory.Decode(token);
         }
 
         private static string ExtractToken(HttpRequest request)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Cresce.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
@@ -9,7 +10,7 @@ namespace Cresce.Api.Controllers
     [Route("")]
     public class HealthController : ControllerBase
     {
-        private Settings _settings;
+        private readonly Settings _settings;
 
         public HealthController(Settings settings)
         {

@@ -54,7 +54,7 @@ namespace Cresce.Core.Tests
 
         protected AuthorizedUser GetAuthorizedUser()
         {
-            return GetService<ITokenFactory>().MakeToken(new BasicUser
+            return GetService<IAuthorizedUserFactory>().GetAuthorizedUser(new BasicUser
             {
                 Id = "myUser"
             });
@@ -62,12 +62,12 @@ namespace Cresce.Core.Tests
 
         protected AuthorizedUser GetUnknownUser()
         {
-            return GetService<ITokenFactory>().MakeToken(new UnknownUser());
+            return GetService<IAuthorizedUserFactory>().GetAuthorizedUser(new UnknownUser());
         }
 
         protected AuthorizedUser GetExpiredUser()
         {
-            return GetService<ITokenFactory>().MakeInvalidToken();
+            return GetService<IAuthorizedUserFactory>().MakeInvalidToken();
         }
 
         private TService GetService<TService>()

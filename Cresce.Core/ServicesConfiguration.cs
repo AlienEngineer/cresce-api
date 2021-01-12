@@ -1,6 +1,7 @@
 using Cresce.Core.Authentication;
 using Cresce.Core.Employees;
 using Cresce.Core.Organizations;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace System.Runtime.CompilerServices
@@ -17,7 +18,8 @@ namespace Cresce.Core
             serviceCollection.AddTransient<ILoginService, LoginService>();
             serviceCollection.AddTransient<IOrganizationService, OrganizationService>();
             serviceCollection.AddTransient<IEmployeeService, EmployeeService>();
-            serviceCollection.AddTransient<ITokenFactory, TokenFactory>();
+            serviceCollection.AddTransient<IAuthorizedUserFactory, AuthorizedUserFactory>();
+            serviceCollection.AddTransient(provider => new Settings(provider.GetService<IConfiguration>()));
         }
     }
 }

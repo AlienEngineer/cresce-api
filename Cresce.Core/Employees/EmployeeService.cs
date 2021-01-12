@@ -19,5 +19,9 @@ namespace Cresce.Core.Employees
             return await _gateway.GetEmployees(organizationId);
         }
 
+        public void ValidatePin()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

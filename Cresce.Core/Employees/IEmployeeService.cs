@@ -7,5 +7,6 @@ namespace Cresce.Core.Employees
     public interface IEmployeeService
     {
         Task<IEnumerable<Employee>> GetEmployees(AuthorizedUser user, string organizationId);
+        void ValidatePin();
     }
 }

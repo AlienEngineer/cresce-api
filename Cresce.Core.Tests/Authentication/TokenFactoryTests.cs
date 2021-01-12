@@ -4,14 +4,14 @@ using NUnit.Framework;
 
 namespace Cresce.Core.Tests.Authentication
 {
-    public class TokenFactoryTests : ServicesTests<ITokenFactory>
+    public class TokenFactoryTests : ServicesTests<IAuthorizedUserFactory>
     {
         [Test]
         public void Making_a_token_from_a_user_it_is_not_expired()
         {
             var factory = MakeService();
 
-            var token = factory.MakeToken(new BasicUser {Id = "myUser"});
+            var token = factory.GetAuthorizedUser(new BasicUser {Id = "myUser"});
 
             Assert.That(token.IsExpired, Is.False);
         }
@@ -21,7 +21,7 @@ namespace Cresce.Core.Tests.Authentication
         {
             var factory = MakeService();
 
-            var token = factory.MakeToken(new BasicUser {Id = "myUser"});
+            var token = factory.GetAuthorizedUser(new BasicUser {Id = "myUser"});
             var roundTripToken = factory.Decode(token.ToString());
 
             Assert.Multiple(() =>
@@ -61,7 +61,7 @@ namespace Cresce.Core.Tests.Authentication
         {
             var factory = MakeService();
 
-            var token = factory.MakeToken(new BasicUser {Id = "myUser"});
+            var token = factory.GetAuthorizedUser(new BasicUser {Id = "myUser"});
 
             Assert.Multiple(() =>
             {
@@ -75,7 +75,7 @@ namespace Cresce.Core.Tests.Authentication
         {
             var factory = MakeService();
 
-            var token = factory.MakeToken(new BasicUser {Id = "myUser"});
+            var token = factory.GetAuthorizedUser(new BasicUser {Id = "myUser"});
 
             Assert.Multiple(() =>
             {
@@ -90,7 +90,7 @@ namespace Cresce.Core.Tests.Authentication
         {
             var factory = MakeService();
 
-            var token = factory.MakeToken(new AdminUser {Id = "myUser"});
+            var token = factory.GetAuthorizedUser(new AdminUser {Id = "myUser"});
 
             Assert.Multiple(() =>
             {

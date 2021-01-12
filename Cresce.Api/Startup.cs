@@ -60,10 +60,10 @@ namespace Cresce.Api
                 options.Filters.Add(new LogRequestFilter());
             });
 
-            services.AddSingleton(_ => new Settings(Configuration));
+            var settings = new Settings(Configuration);
             GatewaysConfiguration.RegisterServices(services);
             ServicesConfiguration.RegisterServices(services);
-            GatewaysConfiguration.RegisterDbContext(services, new Settings(Configuration).ConnectionString);
+            GatewaysConfiguration.RegisterDbContext(services, settings.ConnectionString);
 
             services
                 .AddAuthentication(x =>
@@ -78,7 +78,7 @@ namespace Cresce.Api
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Settings.Secret)),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(settings.AppKey)),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };

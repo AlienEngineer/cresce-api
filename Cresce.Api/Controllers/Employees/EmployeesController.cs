@@ -25,5 +25,7 @@ namespace Cresce.Api.Controllers.Employees
             return (await _service.GetEmployees(user, organization))
                 .Select(employee => new EmployeeModel(employee));
         }
+
+
     }
 }

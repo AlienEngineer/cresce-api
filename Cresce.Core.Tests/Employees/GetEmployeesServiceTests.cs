@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace Cresce.Core.Tests.Employees
 {
-    public class EmployeeServiceTests : ServicesTests<IEmployeeService>
+    public class GetEmployeesServiceTests : ServicesTests<IEmployeeService>
     {
         [Test]
         public async Task Getting_employees_from_organization_returns_employees_for_given_organization()
