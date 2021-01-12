@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Cresce.Core.Organizations;
+using Cresce.Core.Users;
 
 namespace Cresce.Core.Authentication
 {
@@ -18,11 +19,16 @@ namespace Cresce.Core.Authentication
             _gateway = gateway;
         }
 
+        protected AuthorizedUser(AuthorizedUser user) : this(user._token, user._gateway)
+        {
+        }
+
         public bool IsExpired => _token.ValidTo < DateTime.UtcNow.AddSeconds(5);
         public string UserId => GetClaim("unique_name").Value;
         public string Role => GetClaim("role").Value;
+        public DateTime ExpirationDate => _token.ValidTo;
 
-        private Claim GetClaim(string type)
+        protected Claim GetClaim(string type)
         {
             EnsureTokenIsStillValid();
             return _token.Claims.FirstOrDefault(e => e.Type == type)
@@ -45,10 +51,24 @@ namespace Cresce.Core.Authentication
                 throw new UnauthorizedException($"[{UserId}] doesn't have access to [{organizationId}]");
             }
         }
+
+        public User ToUser() => new AdminUser {Id = UserId};
+    }
+
+    public class AuthorizedEmployee : AuthorizedUser
+    {
+        internal AuthorizedEmployee(JwtSecurityToken token, IGetUserOrganizationsGateway gateway)
+            : base(token, gateway)
+        {
+        }
+
+        public string EmployeeId => GetClaim(ClaimTypes.UserData).Value;
     }
 
     public class UnauthorizedException : Exception
     {
-        public UnauthorizedException(string message) : base(message) { }
+        public UnauthorizedException(string message) : base(message)
+        {
+        }
     }
 }

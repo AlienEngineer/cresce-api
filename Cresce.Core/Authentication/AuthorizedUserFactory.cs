@@ -39,16 +39,34 @@ namespace Cresce.Core.Authentication
             return new AuthorizedUser((JwtSecurityToken) token, _gateway);
         }
 
+        public AuthorizedEmployee GetAuthorizedEmployee(AuthorizedUser user, string employeeId)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(
+                MakeDescriptor(
+                    user.ToUser(),
+                    user.ExpirationDate,
+                    employeeId
+                )
+            );
+            return new AuthorizedEmployee((JwtSecurityToken) token, _gateway);
+        }
+
         public AuthorizedUser MakeInvalidToken() => Decode("");
 
-        private SecurityTokenDescriptor MakeDescriptor(User user, DateTime? dateTime = null)
+        private SecurityTokenDescriptor MakeDescriptor(
+            User user,
+            DateTime? dateTime = null,
+            string? employeeId = null
+        )
         {
             return new()
             {
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, user.Id),
-                    new Claim(ClaimTypes.Role, user.Role)
+                    new Claim(ClaimTypes.Role, user.Role),
+                    new Claim(ClaimTypes.UserData, employeeId ?? "")
                 }),
                 Expires = GetExpirationDate(dateTime),
                 SigningCredentials = new SigningCredentials(

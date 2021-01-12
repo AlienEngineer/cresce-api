@@ -7,10 +7,15 @@ namespace Cresce.Core.Employees
     internal class EmployeeService : IEmployeeService
     {
         private readonly IGetEmployeesGateway _gateway;
+        private readonly IAuthorizedUserFactory _authorizedUserFactory;
 
-        public EmployeeService(IGetEmployeesGateway gateway)
+        public EmployeeService(
+            IGetEmployeesGateway gateway,
+            IAuthorizedUserFactory authorizedUserFactory
+        )
         {
             _gateway = gateway;
+            _authorizedUserFactory = authorizedUserFactory;
         }
 
         public async Task<IEnumerable<Employee>> GetEmployees(AuthorizedUser user, string organizationId)
@@ -19,9 +24,9 @@ namespace Cresce.Core.Employees
             return await _gateway.GetEmployees(organizationId);
         }
 
-        public void ValidatePin()
+        public async Task<AuthorizedEmployee> ValidatePin(AuthorizedUser user, EmployeePin employeePin)
         {
-            throw new System.NotImplementedException();
+            return _authorizedUserFactory.GetAuthorizedEmployee(user, employeePin.EmployeeId);
         }
     }
 }
