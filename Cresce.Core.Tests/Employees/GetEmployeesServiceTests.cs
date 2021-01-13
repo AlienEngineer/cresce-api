@@ -21,7 +21,8 @@ namespace Cresce.Core.Tests.Employees
                 {
                     Name = "Ricardo Nunes",
                     Title = "Engineer",
-                    Image = GetSampleImage()
+                    Image = GetSampleImage(),
+                    Pin = "1234"
                 },
             }, employees);
         }

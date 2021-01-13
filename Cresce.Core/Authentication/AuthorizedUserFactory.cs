@@ -52,7 +52,9 @@ namespace Cresce.Core.Authentication
             return new AuthorizedEmployee((JwtSecurityToken) token, _gateway);
         }
 
-        public AuthorizedUser MakeInvalidToken() => Decode("");
+        public AuthorizedEmployee makeUnauthorizedEmployee() => new(new JwtSecurityToken(), _gateway);
+
+        public AuthorizedUser MakeUnauthorizedUser() => new(new JwtSecurityToken(), _gateway);
 
         private SecurityTokenDescriptor MakeDescriptor(
             User user,

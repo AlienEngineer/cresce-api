@@ -67,7 +67,7 @@ namespace Cresce.Core.Tests
 
         protected AuthorizedUser GetExpiredUser()
         {
-            return GetService<IAuthorizedUserFactory>().MakeInvalidToken();
+            return GetService<IAuthorizedUserFactory>().MakeUnauthorizedUser();
         }
 
         private TService GetService<TService>()

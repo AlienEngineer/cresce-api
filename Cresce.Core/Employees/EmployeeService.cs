@@ -26,7 +26,11 @@ namespace Cresce.Core.Employees
 
         public async Task<AuthorizedEmployee> ValidatePin(AuthorizedUser user, EmployeePin employeePin)
         {
-            return _authorizedUserFactory.GetAuthorizedEmployee(user, employeePin.EmployeeId);
+            var employee = await _gateway.GetEmployeeById(employeePin.EmployeeId);
+
+            return !employee.Verify(employeePin)
+                ? _authorizedUserFactory.makeUnauthorizedEmployee()
+                : _authorizedUserFactory.GetAuthorizedEmployee(user, employeePin.EmployeeId);
         }
     }
 }

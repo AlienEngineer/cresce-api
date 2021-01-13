@@ -7,7 +7,8 @@ namespace Cresce.Core.Authentication
     {
         AuthorizedUser Decode(string token);
         AuthorizedUser GetAuthorizedUser(User user, DateTime? dateTime = null);
-        AuthorizedUser MakeInvalidToken();
+        AuthorizedUser MakeUnauthorizedUser();
         AuthorizedEmployee GetAuthorizedEmployee(AuthorizedUser user, string employeeId);
+        AuthorizedEmployee makeUnauthorizedEmployee();
     }
 }

@@ -35,7 +35,8 @@ namespace Cresce.Core.Sql
                 Id = "Ricardo Nunes",
                 Title = "Engineer",
                 Image = new Image(GetSampleImage()).ToByteArray(),
-                OrganizationId = "myOrganization"
+                OrganizationId = "myOrganization",
+                Pin = "1234"
             });
 
             SaveChanges();

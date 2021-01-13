@@ -70,7 +70,7 @@ namespace Cresce.Api.Tests
         {
             var client = GetClient();
 
-            var token = MakeTokenFactory()!.MakeInvalidToken();
+            var token = MakeTokenFactory()!.MakeUnauthorizedUser();
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.ToString());
 

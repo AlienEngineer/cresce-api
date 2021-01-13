@@ -24,7 +24,7 @@ namespace Cresce.Core.Authentication
             var user = await _gateway.GetUser(credentials.UserId);
             return credentials.Verify(user)
                     ? _authorizedUserFactory.GetAuthorizedUser(user)
-                    : _authorizedUserFactory.MakeInvalidToken();
+                    : _authorizedUserFactory.MakeUnauthorizedUser();
         }
     }
 }
