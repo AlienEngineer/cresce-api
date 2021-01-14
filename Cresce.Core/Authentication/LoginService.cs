@@ -6,12 +6,12 @@ namespace Cresce.Core.Authentication
     internal class LoginService : ILoginService
     {
         private readonly IGetUserGateway _gateway;
-        private readonly IAuthorizedUserFactory _authorizedUserFactory;
+        private readonly IAuthorizationFactory _authorizationFactory;
 
-        public LoginService(IGetUserGateway gateway, IAuthorizedUserFactory authorizedUserFactory)
+        public LoginService(IGetUserGateway gateway, IAuthorizationFactory authorizationFactory)
         {
             _gateway = gateway;
-            _authorizedUserFactory = authorizedUserFactory;
+            _authorizationFactory = authorizationFactory;
         }
 
         public async Task<bool> AreCredentialsValid(Credentials credentials)
@@ -19,12 +19,12 @@ namespace Cresce.Core.Authentication
             return credentials.Verify(await _gateway.GetUser(credentials.UserId));
         }
 
-        public async Task<AuthorizedUser> ValidateCredentials(Credentials credentials)
+        public async Task<IAuthorization> ValidateCredentials(Credentials credentials)
         {
             var user = await _gateway.GetUser(credentials.UserId);
             return credentials.Verify(user)
-                    ? _authorizedUserFactory.GetAuthorizedUser(user)
-                    : _authorizedUserFactory.MakeUnauthorizedUser();
+                    ? _authorizationFactory.GetAuthorizedUser(user)
+                    : _authorizationFactory.MakeUnauthorizedUser();
         }
     }
 }

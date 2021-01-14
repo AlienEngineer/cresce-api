@@ -8,7 +8,7 @@ using Cresce.Core.Users;
 
 namespace Cresce.Core.Authentication
 {
-    public class AuthorizedUser
+    internal class AuthorizedUser : IAuthorization
     {
         private readonly JwtSecurityToken _token;
         private readonly IGetUserOrganizationsGateway _gateway;
@@ -17,10 +17,6 @@ namespace Cresce.Core.Authentication
         {
             _token = token;
             _gateway = gateway;
-        }
-
-        protected AuthorizedUser(AuthorizedUser user) : this(user._token, user._gateway)
-        {
         }
 
         public bool IsExpired => _token.ValidTo < DateTime.UtcNow.AddSeconds(5);
@@ -55,7 +51,12 @@ namespace Cresce.Core.Authentication
         public User ToUser() => new AdminUser {Id = UserId};
     }
 
-    public class AuthorizedEmployee : AuthorizedUser
+    public interface IEmployeeAuthorization : IAuthorization
+    {
+        string EmployeeId { get; }
+    }
+
+    internal class AuthorizedEmployee : AuthorizedUser, IEmployeeAuthorization
     {
         internal AuthorizedEmployee(JwtSecurityToken token, IGetUserOrganizationsGateway gateway)
             : base(token, gateway)

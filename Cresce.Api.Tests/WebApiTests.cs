@@ -77,10 +77,10 @@ namespace Cresce.Api.Tests
             return client;
         }
 
-        protected IAuthorizedUserFactory MakeTokenFactory()
+        protected IAuthorizationFactory MakeTokenFactory()
         {
             var scope = _factory.Services.CreateScope();
-            return scope.ServiceProvider.GetService<IAuthorizedUserFactory>()!;
+            return scope.ServiceProvider.GetService<IAuthorizationFactory>()!;
         }
 
         protected async Task<HttpClient> GetAuthenticatedClient()

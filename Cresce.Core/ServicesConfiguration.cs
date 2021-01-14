@@ -18,7 +18,7 @@ namespace Cresce.Core
             serviceCollection.AddTransient<ILoginService, LoginService>();
             serviceCollection.AddTransient<IOrganizationService, OrganizationService>();
             serviceCollection.AddTransient<IEmployeeService, EmployeeService>();
-            serviceCollection.AddTransient<IAuthorizedUserFactory, AuthorizedUserFactory>();
+            serviceCollection.AddTransient<IAuthorizationFactory, AuthorizationFactory>();
             serviceCollection.AddTransient(provider => new Settings(provider.GetService<IConfiguration>()));
         }
     }

@@ -7,30 +7,30 @@ namespace Cresce.Core.Employees
     internal class EmployeeService : IEmployeeService
     {
         private readonly IGetEmployeesGateway _gateway;
-        private readonly IAuthorizedUserFactory _authorizedUserFactory;
+        private readonly IAuthorizationFactory _authorizationFactory;
 
         public EmployeeService(
             IGetEmployeesGateway gateway,
-            IAuthorizedUserFactory authorizedUserFactory
+            IAuthorizationFactory authorizationFactory
         )
         {
             _gateway = gateway;
-            _authorizedUserFactory = authorizedUserFactory;
+            _authorizationFactory = authorizationFactory;
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployees(AuthorizedUser user, string organizationId)
+        public async Task<IEnumerable<Employee>> GetEmployees(IAuthorization user, string organizationId)
         {
             await user.EnsureCanAccessOrganization(organizationId);
             return await _gateway.GetEmployees(organizationId);
         }
 
-        public async Task<AuthorizedEmployee> ValidatePin(AuthorizedUser user, EmployeePin employeePin)
+        public async Task<IEmployeeAuthorization> ValidatePin(IAuthorization user, EmployeePin employeePin)
         {
             var employee = await _gateway.GetEmployeeById(employeePin.EmployeeId);
 
             return !employee.Verify(employeePin)
-                ? _authorizedUserFactory.makeUnauthorizedEmployee()
-                : _authorizedUserFactory.GetAuthorizedEmployee(user, employeePin.EmployeeId);
+                ? _authorizationFactory.MakeUnauthorizedEmployee()
+                : _authorizationFactory.GetAuthorizedEmployee(user, employeePin.EmployeeId);
         }
     }
 }

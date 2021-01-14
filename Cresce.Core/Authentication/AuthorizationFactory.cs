@@ -8,19 +8,19 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Cresce.Core.Authentication
 {
-    internal class AuthorizedUserFactory : IAuthorizedUserFactory
+    internal class AuthorizationFactory : IAuthorizationFactory
     {
 
         private readonly IGetUserOrganizationsGateway _gateway;
         private readonly Settings _settings;
 
-        public AuthorizedUserFactory(IGetUserOrganizationsGateway gateway, Settings settings)
+        public AuthorizationFactory(IGetUserOrganizationsGateway gateway, Settings settings)
         {
             _gateway = gateway;
             _settings = settings;
         }
 
-        public AuthorizedUser Decode(string token)
+        public IAuthorization Decode(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -32,14 +32,14 @@ namespace Cresce.Core.Authentication
             );
         }
 
-        public AuthorizedUser GetAuthorizedUser(User user, DateTime? dateTime = null)
+        public IAuthorization GetAuthorizedUser(User user, DateTime? dateTime = null)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(MakeDescriptor(user, dateTime));
             return new AuthorizedUser((JwtSecurityToken) token, _gateway);
         }
 
-        public AuthorizedEmployee GetAuthorizedEmployee(AuthorizedUser user, string employeeId)
+        public IEmployeeAuthorization GetAuthorizedEmployee(IAuthorization user, string employeeId)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(
@@ -52,9 +52,9 @@ namespace Cresce.Core.Authentication
             return new AuthorizedEmployee((JwtSecurityToken) token, _gateway);
         }
 
-        public AuthorizedEmployee makeUnauthorizedEmployee() => new(new JwtSecurityToken(), _gateway);
+        public IEmployeeAuthorization MakeUnauthorizedEmployee() => new AuthorizedEmployee(new JwtSecurityToken(), _gateway);
 
-        public AuthorizedUser MakeUnauthorizedUser() => new(new JwtSecurityToken(), _gateway);
+        public IAuthorization MakeUnauthorizedUser() => new AuthorizedUser(new JwtSecurityToken(), _gateway);
 
         private SecurityTokenDescriptor MakeDescriptor(
             User user,

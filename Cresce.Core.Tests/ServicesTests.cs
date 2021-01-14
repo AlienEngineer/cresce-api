@@ -52,22 +52,22 @@ namespace Cresce.Core.Tests
 
         protected T MakeService() => GetService<T>();
 
-        protected AuthorizedUser GetAuthorizedUser()
+        protected IAuthorization GetAuthorizedUser()
         {
-            return GetService<IAuthorizedUserFactory>().GetAuthorizedUser(new AdminUser
+            return GetService<IAuthorizationFactory>().GetAuthorizedUser(new AdminUser
             {
                 Id = "myUser"
             });
         }
 
-        protected AuthorizedUser GetUnknownUser()
+        protected IAuthorization GetUnknownUser()
         {
-            return GetService<IAuthorizedUserFactory>().GetAuthorizedUser(new UnknownUser());
+            return GetService<IAuthorizationFactory>().GetAuthorizedUser(new UnknownUser());
         }
 
-        protected AuthorizedUser GetExpiredUser()
+        protected IAuthorization GetExpiredUser()
         {
-            return GetService<IAuthorizedUserFactory>().MakeUnauthorizedUser();
+            return GetService<IAuthorizationFactory>().MakeUnauthorizedUser();
         }
 
         private TService GetService<TService>()

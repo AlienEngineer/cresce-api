@@ -18,7 +18,7 @@ namespace Cresce.Api.Controllers.Organizations
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(AuthorizedUser user)
+        public async Task<IActionResult> Index(IAuthorization user)
         {
             var organizations = await _service.GetOrganizations(user);
 

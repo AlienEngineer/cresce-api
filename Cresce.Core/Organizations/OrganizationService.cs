@@ -13,7 +13,7 @@ namespace Cresce.Core.Organizations
             _gateway = gateway;
         }
 
-        public Task<IEnumerable<Organization>> GetOrganizations(AuthorizedUser user)
+        public Task<IEnumerable<Organization>> GetOrganizations(IAuthorization user)
         {
             return _gateway.GetOrganizations(user.UserId);
         }
