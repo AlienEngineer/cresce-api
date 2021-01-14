@@ -34,5 +34,19 @@ namespace Cresce.Core.Tests.Employees
             Assert.That(authorizedUser, Is.Not.Null);
             Assert.That(authorizedUser.IsExpired, Is.True);
         }
+
+        [Test]
+        public async Task Unknown_employee_returns_invalid_token()
+        {
+            var service = MakeService();
+
+            var authorizedUser = await service.ValidatePin(
+                GetAuthorizedUser(),
+                new EmployeePin { EmployeeId = "Unknown employee", Pin = "1234" }
+            );
+
+            Assert.That(authorizedUser, Is.Not.Null);
+            Assert.That(authorizedUser.IsExpired, Is.True);
+        }
     }
 }

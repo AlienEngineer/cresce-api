@@ -54,7 +54,7 @@ namespace Cresce.Core.Tests
 
         protected AuthorizedUser GetAuthorizedUser()
         {
-            return GetService<IAuthorizedUserFactory>().GetAuthorizedUser(new BasicUser
+            return GetService<IAuthorizedUserFactory>().GetAuthorizedUser(new AdminUser
             {
                 Id = "myUser"
             });

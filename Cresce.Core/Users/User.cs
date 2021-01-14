@@ -15,11 +15,6 @@ namespace Cresce.Core.Users
         public override string Role => "Admin";
     }
 
-    public record BasicUser : User
-    {
-        public override string Role => "Basic";
-    }
-
     public record UnknownUser : User
     {
         public override string Role => "Unknown";

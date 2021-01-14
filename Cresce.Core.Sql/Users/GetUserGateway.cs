@@ -9,9 +9,10 @@ namespace Cresce.Core.Sql.Users
 
         public GetUserGateway(CresceContext context) => _context = context;
 
-        public async Task<User> GetUser(string user) => (await GetUserModel(user)).ToUser();
-
-        private async Task<UserModel> GetUserModel(string user) =>
-            await _context.FindAsync<UserModel>(user) ?? new UserModel();
+        public async Task<User> GetUser(string user)
+        {
+            var userModel = await _context.FindAsync<UserModel>(user) ?? new UserModel();
+            return userModel.ToUser();
+        }
     }
 }
