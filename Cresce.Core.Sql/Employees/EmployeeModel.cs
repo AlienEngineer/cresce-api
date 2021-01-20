@@ -1,4 +1,5 @@
 using Cresce.Core.Employees;
+using Cresce.Core.Employees.GetEmployees;
 
 namespace Cresce.Core.Sql.Employees
 {

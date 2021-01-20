@@ -1,36 +1,29 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cresce.Core.Authentication;
+using Cresce.Core.Employees.EmployeeValidation;
+using Cresce.Core.Employees.GetEmployees;
 
 namespace Cresce.Core.Employees
 {
     internal class EmployeeService : IEmployeeService
     {
-        private readonly IGetEmployeesGateway _gateway;
-        private readonly IAuthorizationFactory _authorizationFactory;
+        private readonly GetEmployeesService _getEmployeesService;
+        private readonly EmployeeValidationService _employeeValidationService;
 
         public EmployeeService(
             IGetEmployeesGateway gateway,
             IAuthorizationFactory authorizationFactory
         )
         {
-            _gateway = gateway;
-            _authorizationFactory = authorizationFactory;
+            _getEmployeesService = new GetEmployeesService(gateway);
+            _employeeValidationService = new EmployeeValidationService(gateway, authorizationFactory);
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployees(IAuthorization user, string organizationId)
-        {
-            await user.EnsureCanAccessOrganization(organizationId);
-            return await _gateway.GetEmployees(organizationId);
-        }
+        public Task<IEnumerable<Employee>> GetEmployees(IAuthorization user, string organizationId) =>
+            _getEmployeesService.GetEmployees(user, organizationId);
 
-        public async Task<IEmployeeAuthorization> ValidatePin(IAuthorization user, EmployeePin employeePin)
-        {
-            var employee = await _gateway.GetEmployeeById(employeePin.EmployeeId);
-
-            return !employee.Verify(employeePin)
-                ? _authorizationFactory.MakeUnauthorizedEmployee()
-                : _authorizationFactory.GetAuthorizedEmployee(user, employeePin.EmployeeId);
-        }
+        public Task<IEmployeeAuthorization> ValidatePin(IAuthorization user, EmployeePin employeePin) =>
+            _employeeValidationService.ValidatePin(user, employeePin);
     }
 }

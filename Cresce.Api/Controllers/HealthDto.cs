@@ -5,10 +5,10 @@ namespace Cresce.Api.Controllers
 {
     public record HealthDto
     {
-        public DateTime ServerTime { get; init; }
-        public HealthStatus Health { get; init; }
-        public string ApiVersion { get; init; }
-        public string ConnectionString { get; set; }
+        public DateTime ServerTime { get; init; } = DateTime.Now;
+        public HealthStatus Health { get; init; } = HealthStatus.Healthy;
+        public string ApiVersion { get; init; } = string.Empty;
+        public string ConnectionString { get; set; } = string.Empty;
         public string? EnvConnectionString { get; set; }
     }
 }

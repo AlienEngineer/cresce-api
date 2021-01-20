@@ -18,14 +18,14 @@ namespace Cresce.Api.Controllers.Authentications
         [HttpPost]
         public async Task<IActionResult> Login(CredentialsDto credentials)
         {
-            var user = await _loginService.ValidateCredentials(new Credentials(credentials.User, credentials.Password));
+            var authorization = await _loginService.ValidateCredentials(new Credentials(credentials.User, credentials.Password));
 
-            if (user.IsExpired) return Unauthorized();
+            if (authorization.IsExpired) return Unauthorized();
 
             return new OkObjectResult(new LoginResultDto
             {
                 OrganizationUrl = "api/v1/organizations/",
-                Token = user.ToString()
+                Token = authorization.ToString()!
             });
         }
     }

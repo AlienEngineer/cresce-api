@@ -22,7 +22,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Cresce.Api\Cresce.Api.csproj" />
-      <ProjectReference Include="..\Cresce.Core.InMemory\Cresce.Core.InMemory.csproj" />
       <ProjectReference Include="..\Cresce.Core\Cresce.Core.csproj" />
     </ItemGroup>
 

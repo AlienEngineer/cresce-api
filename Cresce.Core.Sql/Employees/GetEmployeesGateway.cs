@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cresce.Core.Employees;
+using Cresce.Core.Employees.GetEmployees;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cresce.Core.Sql.Employees

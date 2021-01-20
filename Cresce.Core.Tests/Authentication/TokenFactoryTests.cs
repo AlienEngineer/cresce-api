@@ -22,7 +22,7 @@ namespace Cresce.Core.Tests.Authentication
             var factory = MakeService();
 
             var token = factory.GetAuthorizedUser(new AdminUser {Id = "myUser"});
-            var roundTripToken = factory.Decode(token.ToString());
+            var roundTripToken = factory.Decode(token.ToString()!);
 
             Assert.Multiple(() =>
             {

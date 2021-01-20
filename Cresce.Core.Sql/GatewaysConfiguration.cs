@@ -1,4 +1,5 @@
 using Cresce.Core.Employees;
+using Cresce.Core.Employees.GetEmployees;
 using Cresce.Core.Organizations;
 using Cresce.Core.Sql.Employees;
 using Cresce.Core.Sql.Organizations;

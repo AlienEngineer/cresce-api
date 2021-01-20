@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cresce.Core.Authentication;
+using Cresce.Core.Employees.EmployeeValidation;
+using Cresce.Core.Employees.GetEmployees;
 
 namespace Cresce.Core.Employees
 {
-    public interface IEmployeeService
+    public interface IEmployeeService : IGetEmployeesService, IEmployeeValidationService
     {
-        Task<IEnumerable<Employee>> GetEmployees(IAuthorization user, string organizationId);
-        Task<IEmployeeAuthorization> ValidatePin(IAuthorization user, EmployeePin employeePin);
     }
 }

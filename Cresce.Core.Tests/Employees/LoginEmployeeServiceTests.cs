@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Cresce.Core.Employees;
+using Cresce.Core.Employees.EmployeeValidation;
 using NUnit.Framework;
 
 namespace Cresce.Core.Tests.Employees

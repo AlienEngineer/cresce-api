@@ -1,4 +1,4 @@
-using Cresce.Core.Employees;
+using Cresce.Core.Employees.GetEmployees;
 
 namespace Cresce.Api.Models
 {
@@ -11,10 +11,12 @@ namespace Cresce.Api.Models
             Image = employee.Image.ToBase64();
         }
 
-        public EmployeeModel() { }
+        public EmployeeModel()
+        {
+        }
 
-        public string Name { get; init; }
-        public string Image { get; init; }
-        public string Title { get; init; }
+        public string Name { get; init; } = string.Empty;
+        public string Image { get; init; } = string.Empty;
+        public string Title { get; init; } = string.Empty;
     }
 }

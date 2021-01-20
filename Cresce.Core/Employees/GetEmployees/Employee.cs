@@ -1,4 +1,6 @@
-namespace Cresce.Core.Employees
+using Cresce.Core.Employees.EmployeeValidation;
+
+namespace Cresce.Core.Employees.GetEmployees
 {
     public record Employee
     {
