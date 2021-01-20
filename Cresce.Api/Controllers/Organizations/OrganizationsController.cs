@@ -12,13 +12,10 @@ namespace Cresce.Api.Controllers.Organizations
     {
         private readonly IOrganizationService _service;
 
-        public OrganizationsController(IOrganizationService service)
-        {
-            _service = service;
-        }
+        public OrganizationsController(IOrganizationService service) => _service = service;
 
         [HttpGet]
-        public async Task<IActionResult> Index(IAuthorization user)
+        public async Task<IActionResult> Index([FromHeader] IAuthorization user)
         {
             var organizations = await _service.GetOrganizations(user);
 

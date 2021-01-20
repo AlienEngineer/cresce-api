@@ -1,6 +1,10 @@
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Cresce.Api.Controllers.Authentications;
+using Cresce.Api.Controllers.Employees;
 using Cresce.Api.Models;
+using Cresce.Core.Employees.EmployeeValidation;
 using NUnit.Framework;
 
 namespace Cresce.Api.Tests.Controllers
@@ -34,6 +38,37 @@ namespace Cresce.Api.Tests.Controllers
             var client = await GetAuthenticatedClient();
 
             var response = await client.GetAsync($"api/v1/organization/NotThisUserOrganization/employees");
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
+        }
+
+        [Test]
+        public async Task Verifying_valid_login_credentials_returns_200()
+        {
+            var client = await GetAuthenticatedClient();
+
+            var response = await client.PostAsJsonAsync(
+                "/api/v1/employees",
+                new EmployeePin {EmployeeId = "Ricardo Nunes", Pin = "1234"}
+            );
+
+            response.EnsureSuccessStatusCode();
+            var loginResult = await response.Content.ReadAsAsync<EmployeeLoginResultDto>();
+
+            Assert.That(loginResult, Is.Not.Null);
+            Assert.That(loginResult.Token, Is.Not.Null);
+        }
+
+        [Test]
+        public async Task Verifying_invalid_login_credentials_returns_401()
+        {
+            var client = await GetAuthenticatedClient();
+
+            var response = await client.PostAsJsonAsync("/api/v1/employees", new EmployeePin
+            {
+                EmployeeId = "Ricardo Nunes",
+                Pin = "12342"
+            });
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
         }

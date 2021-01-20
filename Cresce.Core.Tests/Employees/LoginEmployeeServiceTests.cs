@@ -13,13 +13,14 @@ namespace Cresce.Core.Tests.Employees
         {
             var service = MakeService();
 
-            var authorizedUser = await service.ValidatePin(
+            var authorization = await service.ValidatePin(
                 GetAuthorizedUser(),
                 new EmployeePin { EmployeeId = "Ricardo Nunes", Pin = "1234" }
             );
 
-            Assert.That(authorizedUser, Is.Not.Null);
-            Assert.That(authorizedUser.EmployeeId, Is.EqualTo("Ricardo Nunes"));
+            Assert.That(authorization, Is.Not.Null);
+            Assert.That(authorization.EmployeeId, Is.EqualTo("Ricardo Nunes"));
+            Assert.That(authorization.IsExpired, Is.False);
         }
 
         [Test]
@@ -27,13 +28,13 @@ namespace Cresce.Core.Tests.Employees
         {
             var service = MakeService();
 
-            var authorizedUser = await service.ValidatePin(
+            var authorization = await service.ValidatePin(
                 GetAuthorizedUser(),
                 new EmployeePin { EmployeeId = "Ricardo Nunes", Pin = "4321" }
             );
 
-            Assert.That(authorizedUser, Is.Not.Null);
-            Assert.That(authorizedUser.IsExpired, Is.True);
+            Assert.That(authorization, Is.Not.Null);
+            Assert.That(authorization.IsExpired, Is.True);
         }
 
         [Test]
@@ -41,13 +42,13 @@ namespace Cresce.Core.Tests.Employees
         {
             var service = MakeService();
 
-            var authorizedUser = await service.ValidatePin(
+            var authorization = await service.ValidatePin(
                 GetAuthorizedUser(),
                 new EmployeePin { EmployeeId = "Unknown employee", Pin = "1234" }
             );
 
-            Assert.That(authorizedUser, Is.Not.Null);
-            Assert.That(authorizedUser.IsExpired, Is.True);
+            Assert.That(authorization, Is.Not.Null);
+            Assert.That(authorization.IsExpired, Is.True);
         }
     }
 }

@@ -10,10 +10,7 @@ namespace Cresce.Api.Controllers.Authentications
     {
         private readonly ILoginService _loginService;
 
-        public AuthenticationController(ILoginService loginService)
-        {
-            _loginService = loginService;
-        }
+        public AuthenticationController(ILoginService loginService) => _loginService = loginService;
 
         [HttpPost]
         public async Task<IActionResult> Login(CredentialsDto credentials)
