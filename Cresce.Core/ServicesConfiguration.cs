@@ -15,11 +15,24 @@ namespace Cresce.Core
     {
         public static void RegisterServices(IServiceCollection serviceCollection)
         {
+            serviceCollection.RegisterModule<EmployeesModule>();
             serviceCollection.AddTransient<ILoginService, LoginService>();
             serviceCollection.AddTransient<IOrganizationService, OrganizationService>();
-            serviceCollection.AddTransient<IEmployeeService, EmployeeService>();
             serviceCollection.AddTransient<IAuthorizationFactory, AuthorizationFactory>();
             serviceCollection.AddTransient(provider => new Settings(provider.GetService<IConfiguration>()));
         }
+    }
+
+    public static class ServiceCollectionExtensions
+    {
+        public static void RegisterModule<TModule>(this IServiceCollection serviceCollection) where TModule : IServicesModule, new()
+        {
+            new TModule().RegisterServices(serviceCollection);
+        }
+    }
+
+    public interface IServicesModule
+    {
+        void RegisterServices(IServiceCollection serviceCollection);
     }
 }

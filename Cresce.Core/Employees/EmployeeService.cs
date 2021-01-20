@@ -8,17 +8,18 @@ namespace Cresce.Core.Employees
 {
     internal class EmployeeService : IEmployeeService
     {
-        private readonly GetEmployeesService _getEmployeesService;
-        private readonly EmployeeValidationService _employeeValidationService;
+        private readonly IGetEmployeesService _getEmployeesService;
+        private readonly IEmployeeValidationService _employeeValidationService;
 
         public EmployeeService(
-            IGetEmployeesGateway gateway,
-            IAuthorizationFactory authorizationFactory
+            IGetEmployeesService getEmployeesService,
+            IEmployeeValidationService employeeValidationService
         )
         {
-            _getEmployeesService = new GetEmployeesService(gateway);
-            _employeeValidationService = new EmployeeValidationService(gateway, authorizationFactory);
+            _getEmployeesService = getEmployeesService;
+            _employeeValidationService = employeeValidationService;
         }
+
 
         public Task<IEnumerable<Employee>> GetEmployees(IAuthorization user, string organizationId) =>
             _getEmployeesService.GetEmployees(user, organizationId);
