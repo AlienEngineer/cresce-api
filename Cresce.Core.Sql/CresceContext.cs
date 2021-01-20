@@ -1,5 +1,6 @@
 using Cresce.Core.Sql.Employees;
 using Cresce.Core.Sql.Organizations;
+using Cresce.Core.Sql.Services;
 using Cresce.Core.Sql.Users;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,12 +18,10 @@ namespace Cresce.Core.Sql
             modelBuilder.Entity<UserModel>().ToTable("Users");
             modelBuilder.Entity<OrganizationModel>().ToTable("Organizations");
             modelBuilder.Entity<EmployeeModel>().ToTable("Employees");
+            modelBuilder.Entity<ServiceModel>().ToTable("Service");
         }
 
-        public void DeleteDatabase()
-        {
-            Database.EnsureDeleted();
-        }
+        public void DeleteDatabase() => Database.EnsureDeleted();
 
         public void Seed()
         {
@@ -37,6 +36,13 @@ namespace Cresce.Core.Sql
                 Image = new Image(GetSampleImage()).ToByteArray(),
                 OrganizationId = "myOrganization",
                 Pin = "1234"
+            });
+            Add(new ServiceModel
+            {
+                Id = 1,
+                Name = "Development",
+                Image = new Image(GetSampleImage()).ToByteArray(),
+                Value = 30.0,
             });
 
             SaveChanges();

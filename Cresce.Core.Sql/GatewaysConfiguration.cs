@@ -1,8 +1,9 @@
-using Cresce.Core.Employees;
 using Cresce.Core.Employees.GetEmployees;
 using Cresce.Core.Organizations;
+using Cresce.Core.Services.GetServices;
 using Cresce.Core.Sql.Employees;
 using Cresce.Core.Sql.Organizations;
+using Cresce.Core.Sql.Services;
 using Cresce.Core.Sql.Users;
 using Cresce.Core.Users;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ namespace Cresce.Core.Sql
             RegisterUserGateways(serviceCollection);
             RegisterOrganizationGateways(serviceCollection);
             RegisterEmployeeGateways(serviceCollection);
+            RegisterServiceGateways(serviceCollection);
         }
 
         public static void RegisterDbContext(IServiceCollection serviceCollection, string connectionString)
@@ -25,6 +27,11 @@ namespace Cresce.Core.Sql
             {
                 builder.UseSqlServer(connectionString);
             });
+        }
+
+        private static void RegisterServiceGateways(IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddTransient<IGetServicesGateway, GetServicesGateway>();
         }
 
         private static void RegisterEmployeeGateways(IServiceCollection serviceCollection)

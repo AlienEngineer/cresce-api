@@ -60,6 +60,15 @@ namespace Cresce.Core.Tests
             });
         }
 
+        protected IEmployeeAuthorization GetEmployeeAuthorization()
+        {
+            var factory = GetService<IAuthorizationFactory>();
+            return factory.GetAuthorizedEmployee(
+                factory.GetAuthorizedUser(new AdminUser {Id = "myUser"}),
+                "Ricardo Nunes"
+            );
+        }
+
         protected IAuthorization GetUnknownUser()
         {
             return GetService<IAuthorizationFactory>().GetAuthorizedUser(new UnknownUser());
