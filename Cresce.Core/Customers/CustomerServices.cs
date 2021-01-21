@@ -1,20 +1,20 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cresce.Core.Authentication;
-using Cresce.Core.Customers.GetCustomers;
+using Cresce.Core.GetEntities;
 
 namespace Cresce.Core.Customers
 {
     public class CustomerServices : ICustomerServices
     {
-        private readonly IGetCustomersService _getCustomersService;
+        private readonly IGetEntitiesService<Customer> _getCustomersService;
 
-        public CustomerServices(IGetCustomersService getCustomersService)
+        public CustomerServices(IGetEntitiesService<Customer> getCustomersService)
         {
             _getCustomersService = getCustomersService;
         }
 
         public Task<IEnumerable<Customer>> GetCustomers(IEmployeeAuthorization authorization) =>
-            _getCustomersService.GetCustomers(authorization);
+            _getCustomersService.GetEntities(authorization);
     }
 }

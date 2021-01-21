@@ -1,3 +1,4 @@
+using Cresce.Core.Sql.Customers;
 using Cresce.Core.Sql.Employees;
 using Cresce.Core.Sql.Organizations;
 using Cresce.Core.Sql.Services;

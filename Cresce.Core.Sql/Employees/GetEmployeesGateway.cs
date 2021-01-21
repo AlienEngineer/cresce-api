@@ -19,13 +19,13 @@ namespace Cresce.Core.Sql.Employees
                 .Where(e => e.OrganizationId == organizationId)
                 .ToListAsync();
 
-            return employeesModels.Select(e => e.ToEmployee());
+            return employeesModels.Select(e => e.Unwrap());
         }
 
         public async Task<Employee> GetEmployeeById(string employeeId)
         {
             var model = await _context.Set<EmployeeModel>().FindAsync(employeeId) ?? new EmployeeModel();
-            return model.ToEmployee();
+            return model.Unwrap();
         }
     }
 }

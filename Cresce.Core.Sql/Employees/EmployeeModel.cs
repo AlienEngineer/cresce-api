@@ -2,7 +2,7 @@ using Cresce.Core.Employees.GetEmployees;
 
 namespace Cresce.Core.Sql.Employees
 {
-    internal class EmployeeModel
+    internal class EmployeeModel : IUnwrap<Employee>
     {
         public string Id { get; set; }
         public string Title { get; set; }
@@ -10,7 +10,7 @@ namespace Cresce.Core.Sql.Employees
         public string OrganizationId { get; set; }
         public string Pin { get; set; }
 
-        public Employee ToEmployee()
+        public Employee Unwrap()
         {
             return new Employee
             {

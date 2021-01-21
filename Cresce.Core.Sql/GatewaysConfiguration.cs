@@ -1,9 +1,10 @@
-using Cresce.Core.Customers.GetCustomers;
+using Cresce.Core.Customers;
 using Cresce.Core.Employees.GetEmployees;
 using Cresce.Core.Organizations;
-using Cresce.Core.Services.GetServices;
+using Cresce.Core.Services;
 using Cresce.Core.Sql.Customers;
 using Cresce.Core.Sql.Employees;
+using Cresce.Core.Sql.GetEntities;
 using Cresce.Core.Sql.Organizations;
 using Cresce.Core.Sql.Services;
 using Cresce.Core.Sql.Users;
@@ -26,20 +27,17 @@ namespace Cresce.Core.Sql
 
         public static void RegisterDbContext(IServiceCollection serviceCollection, string connectionString)
         {
-            serviceCollection.AddDbContext<CresceContext>(builder =>
-            {
-                builder.UseSqlServer(connectionString);
-            });
+            serviceCollection.AddDbContext<CresceContext>(builder => { builder.UseSqlServer(connectionString); });
         }
 
         private static void RegisterCustomerGateways(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<IGetCustomersGateway, GetCustomersGateway>();
+            RegisterGetEntities<CustomerModel, Customer>(serviceCollection);
         }
 
         private static void RegisterServiceGateways(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<IGetServicesGateway, GetServicesGateway>();
+            RegisterGetEntities<ServiceModel, Service>(serviceCollection);
         }
 
         private static void RegisterEmployeeGateways(IServiceCollection serviceCollection)
@@ -55,6 +53,12 @@ namespace Cresce.Core.Sql
         private static void RegisterUserGateways(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IGetUserGateway, GetUserGateway>();
+        }
+
+        private static void RegisterGetEntities<TEntityModel, TEntity>(IServiceCollection serviceCollection)
+            where TEntityModel : class, IUnwrap<TEntity>
+        {
+            serviceCollection.AddTransient<IGetEntitiesGateway<TEntity>, GetEntitiesGateway<TEntityModel, TEntity>>();
         }
     }
 }

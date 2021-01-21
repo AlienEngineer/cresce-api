@@ -22,7 +22,7 @@ namespace Cresce.Core.Sql.Organizations
                 .AsSingleQuery()
                 .Where(e => e.UserId == userid)
                 .AsEnumerable()
-                .Select(e => e.ToOrganization()));
+                .Select(e => e.Unwrap()));
         }
     }
 }

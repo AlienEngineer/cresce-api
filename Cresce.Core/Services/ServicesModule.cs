@@ -1,4 +1,3 @@
-using Cresce.Core.Services.GetServices;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cresce.Core.Services
@@ -7,8 +6,8 @@ namespace Cresce.Core.Services
     {
         public void RegisterServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<IGetServicesService, GetServicesService>();
             serviceCollection.AddTransient<IServiceServices, ServiceServices>();
+            serviceCollection.RegisterGetEntities<Service>();
         }
     }
 }

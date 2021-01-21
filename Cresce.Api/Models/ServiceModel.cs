@@ -1,4 +1,4 @@
-using Cresce.Core.Services.GetServices;
+using Cresce.Core.Services;
 
 namespace Cresce.Api.Models
 {

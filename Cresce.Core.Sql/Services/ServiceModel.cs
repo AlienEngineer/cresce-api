@@ -1,15 +1,15 @@
-using Cresce.Core.Services.GetServices;
+using Cresce.Core.Services;
 
 namespace Cresce.Core.Sql.Services
 {
-    internal class ServiceModel
+    internal class ServiceModel : IUnwrap<Service>
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public double Value { get; set; }
         public byte[] Image { get; set; }
 
-        public Service ToService()
+        public Service Unwrap()
         {
             return new Service
             {

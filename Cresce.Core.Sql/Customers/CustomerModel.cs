@@ -1,14 +1,14 @@
-using Cresce.Core.Customers.GetCustomers;
+using Cresce.Core.Customers;
 
-namespace Cresce.Core.Sql.Services
+namespace Cresce.Core.Sql.Customers
 {
-    internal class CustomerModel
+    internal class CustomerModel : IUnwrap<Customer>
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public byte[] Image { get; set; }
 
-        public Customer ToCustomer()
+        public Customer Unwrap()
         {
             return new Customer
             {

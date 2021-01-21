@@ -12,7 +12,7 @@ namespace Cresce.Core.Sql.Users
         public async Task<User> GetUser(string user)
         {
             var userModel = await _context.FindAsync<UserModel>(user) ?? new UserModel();
-            return userModel.ToUser();
+            return userModel.Unwrap();
         }
     }
 }

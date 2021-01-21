@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Cresce.Core.Authentication;
 using Cresce.Core.Customers;
-using Cresce.Core.Customers.GetCustomers;
 using NUnit.Framework;
 
 namespace Cresce.Core.Tests.Customers

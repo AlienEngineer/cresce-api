@@ -1,11 +1,10 @@
 
-namespace Cresce.Core.Services.GetServices
+namespace Cresce.Core.Customers
 {
-    public record Service
+    public record Customer
     {
         public int Id { get; init; } = -1;
         public string Name { get; init; } = string.Empty;
-        public double Value { get; init; } = 0.0;
         public Image Image { get; init; }= new ();
     }
 }

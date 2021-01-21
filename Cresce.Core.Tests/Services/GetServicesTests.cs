@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Cresce.Core.Authentication;
 using Cresce.Core.Services;
-using Cresce.Core.Services.GetServices;
 using NUnit.Framework;
 
 namespace Cresce.Core.Tests.Services
