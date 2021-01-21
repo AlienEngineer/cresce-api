@@ -21,8 +21,8 @@ namespace Cresce.Core.Employees
         }
 
 
-        public Task<IEnumerable<Employee>> GetEmployees(IAuthorization user, string organizationId) =>
-            _getEmployeesService.GetEmployees(user, organizationId);
+        public Task<IEnumerable<Employee>> GetEmployees(IAuthorization authorization, string organizationId) =>
+            _getEmployeesService.GetEmployees(authorization, organizationId);
 
         public Task<IEmployeeAuthorization> ValidatePin(IAuthorization user, EmployeePin employeePin) =>
             _employeeValidationService.ValidatePin(user, employeePin);

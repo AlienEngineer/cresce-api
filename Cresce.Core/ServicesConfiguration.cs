@@ -1,6 +1,7 @@
 using Cresce.Core.Authentication;
 using Cresce.Core.Employees;
 using Cresce.Core.Organizations;
+using Cresce.Core.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +17,7 @@ namespace Cresce.Core
         public static void RegisterServices(IServiceCollection serviceCollection)
         {
             serviceCollection.RegisterModule<EmployeesModule>();
+            serviceCollection.RegisterModule<ServicesModule>();
             serviceCollection.AddTransient<ILoginService, LoginService>();
             serviceCollection.AddTransient<IOrganizationService, OrganizationService>();
             serviceCollection.AddTransient<IAuthorizationFactory, AuthorizationFactory>();

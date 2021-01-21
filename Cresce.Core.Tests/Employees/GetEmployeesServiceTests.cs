@@ -44,7 +44,7 @@ namespace Cresce.Core.Tests.Employees
             var services = MakeService();
 
             Assert.CatchAsync<UnauthorizedException>(() =>
-                services.GetEmployees(GetExpiredUser(), "myOrganization")
+                services.GetEmployees(GetExpiredAuthorization(), "myOrganization")
             );
         }
     }

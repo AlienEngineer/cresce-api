@@ -36,7 +36,7 @@ namespace Cresce.Core.Tests.Organizations
             var service = MakeService();
 
             Assert.CatchAsync<UnauthorizedException>(() =>
-                service.GetOrganizations(GetExpiredUser())
+                service.GetOrganizations(GetExpiredAuthorization())
             );
         }
 

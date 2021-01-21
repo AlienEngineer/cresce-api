@@ -12,7 +12,8 @@ namespace Cresce.Core.Services.GetServices
 
         public Task<IEnumerable<Service>> GetServices(IEmployeeAuthorization authorization)
         {
-            throw new System.NotImplementedException();
+            authorization.EnsureIsNotExpired();
+            return _gateway.GetServices();
         }
     }
 }

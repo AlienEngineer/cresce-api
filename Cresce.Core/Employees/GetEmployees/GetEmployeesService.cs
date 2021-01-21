@@ -10,9 +10,9 @@ namespace Cresce.Core.Employees.GetEmployees
 
         public GetEmployeesService(IGetEmployeesGateway gateway) => _gateway = gateway;
 
-        public async Task<IEnumerable<Employee>> GetEmployees(IAuthorization user, string organizationId)
+        public async Task<IEnumerable<Employee>> GetEmployees(IAuthorization authorization, string organizationId)
         {
-            await user.EnsureCanAccessOrganization(organizationId);
+            await authorization.EnsureCanAccessOrganization(organizationId);
             return await _gateway.GetEmployees(organizationId);
         }
     }

@@ -6,6 +6,6 @@ namespace Cresce.Core.Employees.GetEmployees
 {
     public interface IGetEmployeesService
     {
-        Task<IEnumerable<Employee>> GetEmployees(IAuthorization user, string organizationId);
+        Task<IEnumerable<Employee>> GetEmployees(IAuthorization authorization, string organizationId);
     }
 }

@@ -20,7 +20,7 @@ namespace Cresce.Core.Employees.EmployeeValidation
             var employee = await _gateway.GetEmployeeById(employeePin.EmployeeId);
 
             return !employee.Verify(employeePin)
-                ? _authorizationFactory.MakeUnauthorizedEmployee()
+                ? _authorizationFactory.MakeExpiredEmployeeAuthorization()
                 : _authorizationFactory.GetAuthorizedEmployee(user, employeePin.EmployeeId);
         }
     }

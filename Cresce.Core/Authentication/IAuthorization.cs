@@ -12,5 +12,6 @@ namespace Cresce.Core.Authentication
         DateTime ExpirationDate { get; }
         Task EnsureCanAccessOrganization(string organizationId);
         User ToUser();
+        void EnsureIsNotExpired();
     }
 }
