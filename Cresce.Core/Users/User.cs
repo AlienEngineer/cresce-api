@@ -1,5 +1,3 @@
-using System;
-
 namespace Cresce.Core.Users
 {
     public abstract record User

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cresce.Api.Controllers.Authentications;
 using Cresce.Api.Models;
 using Cresce.Core.Authentication;
 using Cresce.Core.Employees;

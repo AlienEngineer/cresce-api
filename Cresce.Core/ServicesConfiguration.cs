@@ -1,4 +1,5 @@
 using Cresce.Core.Authentication;
+using Cresce.Core.Customers;
 using Cresce.Core.Employees;
 using Cresce.Core.Organizations;
 using Cresce.Core.Services;
@@ -18,6 +19,7 @@ namespace Cresce.Core
         {
             serviceCollection.RegisterModule<EmployeesModule>();
             serviceCollection.RegisterModule<ServicesModule>();
+            serviceCollection.RegisterModule<CustomersModule>();
             serviceCollection.AddTransient<ILoginService, LoginService>();
             serviceCollection.AddTransient<IOrganizationService, OrganizationService>();
             serviceCollection.AddTransient<IAuthorizationFactory, AuthorizationFactory>();

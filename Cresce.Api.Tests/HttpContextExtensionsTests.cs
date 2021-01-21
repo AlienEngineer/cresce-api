@@ -1,6 +1,5 @@
 using System.Net.Http;
 using Cresce.Api.Controllers;
-using Cresce.Core.Authentication;
 using Microsoft.AspNetCore.Http;
 using Moq;
 using NUnit.Framework;
