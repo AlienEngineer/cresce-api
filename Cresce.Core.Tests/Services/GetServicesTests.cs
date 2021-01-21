@@ -27,7 +27,6 @@ namespace Cresce.Core.Tests.Services
             }, employees);
         }
 
-
         [Test]
         public void Getting_services_with_expired_authentication_throws_exception()
         {
@@ -35,6 +34,16 @@ namespace Cresce.Core.Tests.Services
 
             Assert.CatchAsync<UnauthorizedException>(() =>
                 services.GetServices(GetExpiredEmployeeAuthorization())
+            );
+        }
+
+        [Test]
+        public void Getting_services_with_authentication_without_employee_id_throws_exception()
+        {
+            var services = MakeService();
+
+            Assert.CatchAsync<UnauthorizedException>(() =>
+                services.GetServices(GetInvalidEmployeeAuthorization())
             );
         }
     }

@@ -16,7 +16,7 @@ namespace Cresce.Api.Tests
         {
             var request = MakeHttpRequest(token);
 
-            var user = request.GetUser(MakeTokenFactory());
+            var user = request.GetAuthorization(MakeTokenFactory());
 
             Assert.That(user, Is.Not.Null);
         }
@@ -26,7 +26,7 @@ namespace Cresce.Api.Tests
         {
             var request = MakeHttpRequest();
 
-            Assert.Catch<HttpRequestException>(() => request.GetUser(MakeTokenFactory()));
+            Assert.Catch<HttpRequestException>(() => request.GetAuthorization(MakeTokenFactory()));
         }
 
         [TestCase("null")]
@@ -35,7 +35,7 @@ namespace Cresce.Api.Tests
         {
             var request = MakeHttpRequest(token);
 
-            Assert.Catch<HttpRequestException>(() => request.GetUser(MakeTokenFactory()));
+            Assert.Catch<HttpRequestException>(() => request.GetAuthorization(MakeTokenFactory()));
         }
 
         private static HttpRequest MakeHttpRequest(string bearerToken = "")

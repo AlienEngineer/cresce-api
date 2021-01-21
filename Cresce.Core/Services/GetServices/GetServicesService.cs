@@ -12,7 +12,7 @@ namespace Cresce.Core.Services.GetServices
 
         public Task<IEnumerable<Service>> GetServices(IEmployeeAuthorization authorization)
         {
-            authorization.EnsureIsNotExpired();
+            authorization.EnsureIsValid();
             return _gateway.GetServices();
         }
     }

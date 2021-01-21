@@ -92,5 +92,17 @@ namespace Cresce.Api.Tests
 
             return client;
         }
+
+        protected async Task<HttpClient> GetAuthenticatedEmployeeClient()
+        {
+            var client = GetClient();
+            var login = await client.Login();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", login.Token);
+
+            var employeeLogin = await client.LoginEmployee();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", employeeLogin.Token);
+
+            return client;
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace Cresce.Core.Tests.Authentication
             var factory = MakeService();
 
             var token = factory.MakeAuthorization(new AdminUser {Id = "myUser"});
-            var roundTripToken = factory.Decode(token.ToString()!);
+            var roundTripToken = factory.DecodeAuthorization(token.ToString()!);
 
             Assert.Multiple(() =>
             {
@@ -36,7 +36,7 @@ namespace Cresce.Core.Tests.Authentication
         {
             var factory = MakeService();
 
-            var token = factory.Decode("Invalid Token");
+            var token = factory.DecodeAuthorization("Invalid Token");
 
             Assert.That(token.IsExpired, Is.True);
         }
@@ -46,7 +46,7 @@ namespace Cresce.Core.Tests.Authentication
         {
             var factory = MakeService();
 
-            var token = factory.Decode("Invalid Token");
+            var token = factory.DecodeAuthorization("Invalid Token");
 
             Assert.That(token.IsExpired, Is.True);
             var exception = Assert.Catch<UnauthorizedException>(() =>

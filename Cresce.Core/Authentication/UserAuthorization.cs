@@ -56,6 +56,7 @@ namespace Cresce.Core.Authentication
     public interface IEmployeeAuthorization : IAuthorization
     {
         string EmployeeId { get; }
+        void EnsureIsValid();
     }
 
     internal class AuthorizedEmployee : UserAuthorization, IEmployeeAuthorization
@@ -66,7 +67,13 @@ namespace Cresce.Core.Authentication
         }
 
         public string EmployeeId => GetClaim(ClaimTypes.UserData).Value;
-
+        public void EnsureIsValid()
+        {
+            if (string.IsNullOrEmpty(EmployeeId))
+            {
+                throw new UnauthorizedException($"Authorization has expired.");
+            }
+        }
     }
 
     public class UnauthorizedException : Exception

@@ -44,7 +44,7 @@ namespace Cresce.Api
             services
                 .AddControllers(options =>
                 {
-                    options.ModelBinderProviders.Insert(0, new AuthorizedUserBinderProvider());
+                    options.ModelBinderProviders.Insert(0, new AuthorizationBinderProvider());
                 })
                 .AddJsonOptions(options =>
                 {

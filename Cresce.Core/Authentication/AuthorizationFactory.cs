@@ -10,7 +10,6 @@ namespace Cresce.Core.Authentication
 {
     internal class AuthorizationFactory : IAuthorizationFactory
     {
-
         private readonly IGetUserOrganizationsGateway _gateway;
         private readonly Settings _settings;
 
@@ -20,16 +19,19 @@ namespace Cresce.Core.Authentication
             _settings = settings;
         }
 
-        public IAuthorization Decode(string token)
+        public IAuthorization DecodeAuthorization(string token) =>
+            new UserAuthorization(MakeJwtSecurityToken(token), _gateway);
+
+        public IEmployeeAuthorization DecodeEmployeeAuthorization(string token) =>
+            new AuthorizedEmployee(MakeJwtSecurityToken(token), _gateway);
+
+        private static JwtSecurityToken MakeJwtSecurityToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            return new UserAuthorization(
-                tokenHandler.CanReadToken(token)
-                    ? tokenHandler.ReadJwtToken(token)
-                    : new JwtSecurityToken(),
-                _gateway
-            );
+            return tokenHandler.CanReadToken(token)
+                ? tokenHandler.ReadJwtToken(token)
+                : new JwtSecurityToken();
         }
 
         public IAuthorization MakeAuthorization(User user, DateTime? dateTime = null)
@@ -52,7 +54,8 @@ namespace Cresce.Core.Authentication
             return new AuthorizedEmployee((JwtSecurityToken) token, _gateway);
         }
 
-        public IEmployeeAuthorization MakeExpiredEmployeeAuthorization() => new AuthorizedEmployee(new JwtSecurityToken(), _gateway);
+        public IEmployeeAuthorization MakeExpiredEmployeeAuthorization() =>
+            new AuthorizedEmployee(new JwtSecurityToken(), _gateway);
 
         public IAuthorization MakeExpiredAuthorization() => new UserAuthorization(new JwtSecurityToken(), _gateway);
 
@@ -80,6 +83,4 @@ namespace Cresce.Core.Authentication
 
         private static DateTime GetExpirationDate(DateTime? dateTime) => dateTime ?? DateTime.UtcNow.AddDays(2);
     }
-
-
 }

@@ -68,6 +68,16 @@ namespace Cresce.Core.Tests
                 "Ricardo Nunes"
             );
         }
+
+        protected IEmployeeAuthorization GetInvalidEmployeeAuthorization()
+        {
+            var factory = GetService<IAuthorizationFactory>();
+            return factory.GetAuthorizedEmployee(
+                factory.MakeAuthorization(new AdminUser {Id = "myUser"}),
+                string.Empty
+            );
+        }
+
         protected IEmployeeAuthorization GetExpiredEmployeeAuthorization()
         {
             return GetService<IAuthorizationFactory>().MakeExpiredEmployeeAuthorization();
