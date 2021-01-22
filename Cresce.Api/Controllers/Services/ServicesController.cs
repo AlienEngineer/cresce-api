@@ -20,7 +20,7 @@ namespace Cresce.Api.Controllers.Services
         public async Task<IEnumerable<ServiceModel>> GetServices([FromHeader] IEmployeeAuthorization authorization)
         {
             return (await _service.GetServices(authorization))
-                .Select(employee => new ServiceModel(employee));
+                .Select(entity => new ServiceModel(entity));
         }
 
     }
