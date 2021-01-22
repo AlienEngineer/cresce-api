@@ -12,12 +12,12 @@ namespace Cresce.Core.Tests.Organizations
         {
             var service = MakeService();
 
-            var organizations = await service.GetOrganizations(GetAuthorizedUser());
+            var entities = await service.GetOrganizations(GetAuthorization());
 
             CollectionAssert.AreEqual(new[]
             {
                 new Organization { Name = "myOrganization" }
-            }, organizations);
+            }, entities);
         }
 
         [Test]

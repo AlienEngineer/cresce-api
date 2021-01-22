@@ -34,10 +34,7 @@ namespace Cresce.Core.Tests
         }
 
         [TearDown]
-        public void DisposeConnection()
-        {
-            _connection.Dispose();
-        }
+        public void DisposeConnection() => _connection.Dispose();
 
         private static DbConnection CreateInMemoryDatabase()
         {
@@ -52,13 +49,11 @@ namespace Cresce.Core.Tests
 
         protected T MakeService() => GetService<T>();
 
-        protected IAuthorization GetAuthorizedUser()
-        {
-            return GetService<IAuthorizationFactory>().MakeAuthorization(new AdminUser
+        protected IAuthorization GetAuthorization() =>
+            GetService<IAuthorizationFactory>().MakeAuthorization(new AdminUser
             {
                 Id = "myUser"
             });
-        }
 
         protected IEmployeeAuthorization GetEmployeeAuthorization()
         {
@@ -78,24 +73,15 @@ namespace Cresce.Core.Tests
             );
         }
 
-        protected IEmployeeAuthorization GetExpiredEmployeeAuthorization()
-        {
-            return GetService<IAuthorizationFactory>().MakeExpiredEmployeeAuthorization();
-        }
+        protected IEmployeeAuthorization GetExpiredEmployeeAuthorization() =>
+            GetService<IAuthorizationFactory>().MakeExpiredEmployeeAuthorization();
 
-        protected IAuthorization GetUnknownUser()
-        {
-            return GetService<IAuthorizationFactory>().MakeAuthorization(new UnknownUser());
-        }
+        protected IAuthorization GetUnknownUser() =>
+            GetService<IAuthorizationFactory>().MakeAuthorization(new UnknownUser());
 
-        protected IAuthorization GetExpiredAuthorization()
-        {
-            return GetService<IAuthorizationFactory>().MakeExpiredAuthorization();
-        }
+        protected IAuthorization GetExpiredAuthorization() =>
+            GetService<IAuthorizationFactory>().MakeExpiredAuthorization();
 
-        private TService GetService<TService>()
-        {
-            return _provider.GetService<TService>()!;
-        }
+        private TService GetService<TService>() => _provider.GetService<TService>()!;
     }
 }

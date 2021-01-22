@@ -14,7 +14,7 @@ namespace Cresce.Core.Tests.Employees
             var service = MakeService();
 
             var authorization = await service.ValidatePin(
-                GetAuthorizedUser(),
+                GetAuthorization(),
                 new EmployeePin { EmployeeId = "Ricardo Nunes", Pin = "1234" }
             );
 
@@ -29,7 +29,7 @@ namespace Cresce.Core.Tests.Employees
             var service = MakeService();
 
             var authorization = await service.ValidatePin(
-                GetAuthorizedUser(),
+                GetAuthorization(),
                 new EmployeePin { EmployeeId = "Ricardo Nunes", Pin = "4321" }
             );
 
@@ -43,7 +43,7 @@ namespace Cresce.Core.Tests.Employees
             var service = MakeService();
 
             var authorization = await service.ValidatePin(
-                GetAuthorizedUser(),
+                GetAuthorization(),
                 new EmployeePin { EmployeeId = "Unknown employee", Pin = "1234" }
             );
 

@@ -12,7 +12,7 @@ namespace Cresce.Core.Tests.Services
         {
             var services = MakeService();
 
-            var employees = await services.GetServices(GetEmployeeAuthorization());
+            var entities = await services.GetServices(GetEmployeeAuthorization());
 
             CollectionAssert.AreEqual(new []
             {
@@ -23,7 +23,7 @@ namespace Cresce.Core.Tests.Services
                     Image = GetSampleImage(),
                     Value = 30.0,
                 },
-            }, employees);
+            }, entities);
         }
 
         [Test]
