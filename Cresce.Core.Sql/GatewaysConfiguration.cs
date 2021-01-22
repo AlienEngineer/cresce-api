@@ -42,11 +42,13 @@ namespace Cresce.Core.Sql
 
         private static void RegisterEmployeeGateways(IServiceCollection serviceCollection)
         {
+            RegisterGetEntities<EmployeeModel, Employee>(serviceCollection);
             serviceCollection.AddTransient<IGetEmployeesGateway, GetEmployeesGateway>();
         }
 
         private static void RegisterOrganizationGateways(IServiceCollection serviceCollection)
         {
+            RegisterGetEntities<OrganizationModel, Organization>(serviceCollection);
             serviceCollection.AddTransient<IGetUserOrganizationsGateway, GetUserOrganizationsGateway>();
         }
 
@@ -59,6 +61,9 @@ namespace Cresce.Core.Sql
             where TEntityModel : class, IUnwrap<TEntity>
         {
             serviceCollection.AddTransient<IGetEntitiesGateway<TEntity>, GetEntitiesGateway<TEntityModel, TEntity>>();
+            serviceCollection
+                .AddTransient<IGetEntitiesQuery<TEntityModel, TEntity>, GetEntitiesQuery<TEntityModel, TEntity>>();
         }
+
     }
 }

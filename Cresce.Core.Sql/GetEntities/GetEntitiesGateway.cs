@@ -14,11 +14,10 @@ namespace Cresce.Core.Sql.GetEntities
 
         public async Task<IEnumerable<TEntity>> GetEntities()
         {
-            var models = await _context
-                .Set<TEntityModel>()
-                .ToListAsync();
-
-            return models.Select(e => e.Unwrap());
+            return (await MakeQuery().ToListAsync())
+                .Select(e => e.Unwrap());
         }
+
+        private IQueryable<TEntityModel> MakeQuery() => _context.Set<TEntityModel>();
     }
 }
