@@ -1,30 +1,28 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cresce.Core.Employees.GetEmployees;
+using Cresce.Core.Sql.GetEntities;
 
 namespace Cresce.Core.Sql.Employees
 {
     internal class GetEmployeesGateway : IGetEmployeesGateway
     {
-        private readonly CresceContext _context;
         private readonly IGetEntitiesQuery<EmployeeModel, Employee> _entitiesQuery;
+        private readonly IGetEntityById<Employee> _byIdQuery;
 
         public GetEmployeesGateway(
-            CresceContext context,
-            IGetEntitiesQuery<EmployeeModel, Employee> entitiesQuery
+            IGetEntitiesQuery<EmployeeModel, Employee> entitiesQuery,
+            IGetEntityById<Employee> byIdQuery
         )
         {
-            _context = context;
             _entitiesQuery = entitiesQuery;
+            _byIdQuery = byIdQuery;
         }
 
         public Task<IEnumerable<Employee>> GetEmployees(string organizationId) =>
             _entitiesQuery.GetEntities(filter: e => e.OrganizationId == organizationId);
 
-        public async Task<Employee> GetEmployeeById(string employeeId)
-        {
-            var model = await _context.Set<EmployeeModel>().FindAsync(employeeId) ?? new EmployeeModel();
-            return model.Unwrap();
-        }
+        public Task<Employee> GetEmployeeById(string employeeId) =>
+            _byIdQuery.GetById(employeeId);
     }
 }

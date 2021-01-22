@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cresce.Core.Sql
+namespace Cresce.Core.Sql.GetEntities
 {
     internal class GetEntitiesQuery<TEntityModel, TEntity> : IGetEntitiesQuery<TEntityModel, TEntity> where TEntityModel : class, IUnwrap<TEntity>
     {

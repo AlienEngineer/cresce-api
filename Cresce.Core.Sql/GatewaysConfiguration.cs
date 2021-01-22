@@ -58,8 +58,9 @@ namespace Cresce.Core.Sql
         }
 
         private static void RegisterGetEntities<TEntityModel, TEntity>(IServiceCollection serviceCollection)
-            where TEntityModel : class, IUnwrap<TEntity>
+            where TEntityModel : class, IUnwrap<TEntity>, new()
         {
+            serviceCollection.AddTransient<IGetEntityById<TEntity>, GetEntityById<TEntityModel, TEntity>>();
             serviceCollection.AddTransient<IGetEntitiesGateway<TEntity>, GetEntitiesGateway<TEntityModel, TEntity>>();
             serviceCollection
                 .AddTransient<IGetEntitiesQuery<TEntityModel, TEntity>, GetEntitiesQuery<TEntityModel, TEntity>>();
