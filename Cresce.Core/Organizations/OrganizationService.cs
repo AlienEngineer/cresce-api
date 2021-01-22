@@ -4,7 +4,7 @@ using Cresce.Core.Authentication;
 
 namespace Cresce.Core.Organizations
 {
-    public class OrganizationService: IOrganizationService
+    public class OrganizationService : IOrganizationService
     {
         private readonly IGetUserOrganizationsGateway _gateway;
 
@@ -13,11 +13,7 @@ namespace Cresce.Core.Organizations
             _gateway = gateway;
         }
 
-        public Task<IEnumerable<Organization>> GetOrganizations(IAuthorization user)
-        {
-            return _gateway.GetOrganizations(user.UserId);
-        }
+        public Task<IEnumerable<Organization>> GetOrganizations(IAuthorization user) =>
+            _gateway.GetOrganizations(user.UserId);
     }
-
-
 }

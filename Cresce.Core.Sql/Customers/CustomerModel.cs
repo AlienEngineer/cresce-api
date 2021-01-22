@@ -2,7 +2,7 @@ using Cresce.Core.Customers;
 
 namespace Cresce.Core.Sql.Customers
 {
-    internal class CustomerModel : IUnwrap<Customer>
+    internal class CustomerModel : IUnwrap<Customer>, IWrap<Customer>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -16,6 +16,11 @@ namespace Cresce.Core.Sql.Customers
                 Name = Name,
                 Image = new Image(Image),
             };
+        }
+
+        public void Wrap(Customer entity)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

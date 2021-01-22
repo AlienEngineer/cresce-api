@@ -2,7 +2,7 @@ using Cresce.Core.Services;
 
 namespace Cresce.Core.Sql.Services
 {
-    internal class ServiceModel : IUnwrap<Service>
+    internal class ServiceModel : IUnwrap<Service>, IWrap<Service>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,6 +18,11 @@ namespace Cresce.Core.Sql.Services
                 Image = new Image(Image),
                 Value = Value
             };
+        }
+
+        public void Wrap(Service entity)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

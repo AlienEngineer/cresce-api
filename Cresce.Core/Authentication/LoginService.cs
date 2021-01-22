@@ -5,10 +5,13 @@ namespace Cresce.Core.Authentication
 {
     internal class LoginService : ILoginService
     {
-        private readonly IGetUserGateway _gateway;
+        private readonly IGetEntityByIdGateway<User> _gateway;
         private readonly IAuthorizationFactory _authorizationFactory;
 
-        public LoginService(IGetUserGateway gateway, IAuthorizationFactory authorizationFactory)
+        public LoginService(
+            IGetEntityByIdGateway<User> gateway,
+            IAuthorizationFactory authorizationFactory
+        )
         {
             _gateway = gateway;
             _authorizationFactory = authorizationFactory;
@@ -16,12 +19,12 @@ namespace Cresce.Core.Authentication
 
         public async Task<bool> AreCredentialsValid(Credentials credentials)
         {
-            return credentials.Verify(await _gateway.GetUser(credentials.UserId));
+            return credentials.Verify(await _gateway.GetById(credentials.UserId));
         }
 
         public async Task<IAuthorization> ValidateCredentials(Credentials credentials)
         {
-            var user = await _gateway.GetUser(credentials.UserId);
+            var user = await _gateway.GetById(credentials.UserId);
             return credentials.Verify(user)
                     ? _authorizationFactory.MakeAuthorization(user)
                     : _authorizationFactory.MakeExpiredAuthorization();

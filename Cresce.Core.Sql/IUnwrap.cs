@@ -4,4 +4,9 @@ namespace Cresce.Core.Sql
     {
         T Unwrap();
     }
+
+    internal interface IWrap<in T>
+    {
+        void Wrap(T entity);
+    }
 }

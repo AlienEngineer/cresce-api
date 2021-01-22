@@ -3,7 +3,7 @@ using Cresce.Core.Appointments;
 
 namespace Cresce.Core.Sql.Appointments
 {
-    internal class AppointmentModel : IUnwrap<Appointment>
+    internal class AppointmentModel : IUnwrap<Appointment>, IWrap<Appointment>
     {
         public int Id { get; set; }
         public DateTime StartedAt { get; set; }
@@ -27,6 +27,18 @@ namespace Cresce.Core.Sql.Appointments
                 Discount = Discount,
                 Value = Value
             };
+        }
+
+        public void Wrap(Appointment entity)
+        {
+            Id = entity.Id;
+            StartedAt = entity.StartedAt;
+            ServiceId = entity.ServiceId;
+            EmployeeId = entity.EmployeeId;
+            CustomerId = entity.CustomerId;
+            Hours = entity.Hours;
+            Discount = entity.Discount;
+            Value = entity.Value;
         }
     }
 }

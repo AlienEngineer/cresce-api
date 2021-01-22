@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 
-namespace Cresce.Core.Sql.GetEntities
+namespace Cresce.Core
 {
-    internal interface IGetEntityById<TEntity>
+    public interface IGetEntityByIdGateway<TEntity>
     {
         Task<TEntity> GetById(params object[] keyValues);
     }

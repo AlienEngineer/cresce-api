@@ -4,6 +4,7 @@ using Cresce.Core.Employees.GetEmployees;
 using Cresce.Core.Organizations;
 using Cresce.Core.Services;
 using Cresce.Core.Sql.Appointments;
+using Cresce.Core.Sql.CreateEntities;
 using Cresce.Core.Sql.Customers;
 using Cresce.Core.Sql.Employees;
 using Cresce.Core.Sql.GetEntities;
@@ -20,17 +21,13 @@ namespace Cresce.Core.Sql
     {
         public static void RegisterServices(IServiceCollection serviceCollection)
         {
-            RegisterUserGateways(serviceCollection);
+            RegisterCrudOperations<UserModel, User>(serviceCollection);
             RegisterOrganizationGateways(serviceCollection);
             RegisterEmployeeGateways(serviceCollection);
-            RegisterServiceGateways(serviceCollection);
-            RegisterCustomerGateways(serviceCollection);
-            RegisterAppointmentsGateways(serviceCollection);
-        }
 
-        private static void RegisterAppointmentsGateways(IServiceCollection serviceCollection)
-        {
-            RegisterGetEntities<AppointmentModel, Appointment>(serviceCollection);
+            RegisterCrudOperations<ServiceModel, Service>(serviceCollection);
+            RegisterCrudOperations<CustomerModel, Customer>(serviceCollection);
+            RegisterCrudOperations<AppointmentModel, Appointment>(serviceCollection);
         }
 
         public static void RegisterDbContext(IServiceCollection serviceCollection, string connectionString)
@@ -41,41 +38,27 @@ namespace Cresce.Core.Sql
             });
         }
 
-        private static void RegisterCustomerGateways(IServiceCollection serviceCollection)
-        {
-            RegisterGetEntities<CustomerModel, Customer>(serviceCollection);
-        }
-
-        private static void RegisterServiceGateways(IServiceCollection serviceCollection)
-        {
-            RegisterGetEntities<ServiceModel, Service>(serviceCollection);
-        }
-
         private static void RegisterEmployeeGateways(IServiceCollection serviceCollection)
         {
-            RegisterGetEntities<EmployeeModel, Employee>(serviceCollection);
+            RegisterCrudOperations<EmployeeModel, Employee>(serviceCollection);
             serviceCollection.AddTransient<IGetEmployeesGateway, GetEmployeesGateway>();
         }
 
         private static void RegisterOrganizationGateways(IServiceCollection serviceCollection)
         {
-            RegisterGetEntities<OrganizationModel, Organization>(serviceCollection);
+            RegisterCrudOperations<OrganizationModel, Organization>(serviceCollection);
             serviceCollection.AddTransient<IGetUserOrganizationsGateway, GetUserOrganizationsGateway>();
         }
 
-        private static void RegisterUserGateways(IServiceCollection serviceCollection)
+        private static void RegisterCrudOperations<TEntityModel, TEntity>(IServiceCollection serviceCollection)
+            where TEntityModel : class, IUnwrap<TEntity>, IWrap<TEntity>, new()
         {
-            RegisterGetEntities<UserModel, User>(serviceCollection);
-            serviceCollection.AddTransient<IGetUserGateway, GetUserGateway>();
-        }
-
-        private static void RegisterGetEntities<TEntityModel, TEntity>(IServiceCollection serviceCollection)
-            where TEntityModel : class, IUnwrap<TEntity>, new()
-        {
-            serviceCollection.AddTransient<IGetEntityById<TEntity>, GetEntityById<TEntityModel, TEntity>>();
+            serviceCollection.AddTransient<IGetEntityByIdGateway<TEntity>, GetEntityByIdGateway<TEntityModel, TEntity>>();
             serviceCollection.AddTransient<IGetEntitiesGateway<TEntity>, GetEntitiesGateway<TEntityModel, TEntity>>();
             serviceCollection
                 .AddTransient<IGetEntitiesQuery<TEntityModel, TEntity>, GetEntitiesQuery<TEntityModel, TEntity>>();
+
+            serviceCollection.AddTransient<ICreateEntityGateway<TEntity>, CreateEntityGateway<TEntityModel, TEntity>>();
         }
     }
 }

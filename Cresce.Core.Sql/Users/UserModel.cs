@@ -2,7 +2,7 @@ using Cresce.Core.Users;
 
 namespace Cresce.Core.Sql.Users
 {
-    internal class UserModel : IUnwrap<User>
+    internal class UserModel : IUnwrap<User>, IWrap<User>
     {
         public string Id { get; set; }
         public string Password { get; set; }
@@ -19,6 +19,11 @@ namespace Cresce.Core.Sql.Users
                 Id = Id,
                 Password = Password
             };
+        }
+
+        public void Wrap(User entity)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
