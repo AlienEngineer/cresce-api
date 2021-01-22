@@ -35,7 +35,7 @@ namespace Cresce.Core.Authentication
         {
             if (IsExpired)
             {
-                throw new UnauthorizedException($"Authorization has expired.");
+                throw new UnauthorizedException("Authorization has expired.");
             }
         }
 
@@ -71,7 +71,7 @@ namespace Cresce.Core.Authentication
         {
             if (string.IsNullOrEmpty(EmployeeId))
             {
-                throw new UnauthorizedException($"Authorization has expired.");
+                throw new UnauthorizedException("Authorization has expired.");
             }
         }
     }

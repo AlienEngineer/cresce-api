@@ -55,7 +55,7 @@ namespace Cresce.Api.Tests
             return connection;
         }
 
-        protected Image GetSampleImage()
+        public Image GetSampleImage()
         {
             return new ("/9j/4AAQSkZJRgABAQEASABIAAD/4gIcSUND/Ko2JJuhuCempcX2PS6FS+fgcegih7FjXQ+tbTWulH0f6W/IlbGzaxVTo1L1SL1FIcVyp+R8N+HMz//Z");
         }

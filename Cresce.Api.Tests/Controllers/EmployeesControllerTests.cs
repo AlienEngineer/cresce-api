@@ -15,7 +15,7 @@ namespace Cresce.Api.Tests.Controllers
         {
             var client = await GetAuthenticatedClient();
 
-            var response = await client.GetAsync($"api/v1/organization/myOrganization/employees");
+            var response = await client.GetAsync("api/v1/organization/myOrganization/employees");
 
             await ResponseAssert.ListAreEquals(
                 new[]
@@ -36,7 +36,7 @@ namespace Cresce.Api.Tests.Controllers
         {
             var client = await GetAuthenticatedClient();
 
-            var response = await client.GetAsync($"api/v1/organization/NotThisUserOrganization/employees");
+            var response = await client.GetAsync("api/v1/organization/NotThisUserOrganization/employees");
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
         }
