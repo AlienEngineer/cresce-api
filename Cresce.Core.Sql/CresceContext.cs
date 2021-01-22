@@ -1,3 +1,4 @@
+using System;
 using Cresce.Core.Sql.Appointments;
 using Cresce.Core.Sql.Customers;
 using Cresce.Core.Sql.Employees;
@@ -57,6 +58,13 @@ namespace Cresce.Core.Sql
             Add(new AppointmentModel
             {
                 Id = 1,
+                Discount = 10.0,
+                Hours = 3.5,
+                Value = 30.0,
+                CustomerId = 1,
+                EmployeeId = 1,
+                ServiceId = 1,
+                StartedAt = new DateTime(2020, 02, 10)
             });
 
             SaveChanges();
