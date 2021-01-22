@@ -1,3 +1,4 @@
+using Cresce.Core.Sql.Appointments;
 using Cresce.Core.Sql.Customers;
 using Cresce.Core.Sql.Employees;
 using Cresce.Core.Sql.Organizations;
@@ -21,6 +22,7 @@ namespace Cresce.Core.Sql
             modelBuilder.Entity<EmployeeModel>().ToTable("Employees");
             modelBuilder.Entity<ServiceModel>().ToTable("Service");
             modelBuilder.Entity<CustomerModel>().ToTable("Patient");
+            modelBuilder.Entity<AppointmentModel>().ToTable("Appointment");
         }
 
         public void DeleteDatabase() => Database.EnsureDeleted();
@@ -51,6 +53,10 @@ namespace Cresce.Core.Sql
                 Id = 1,
                 Name = "Diogo Quintas",
                 Image = new Image(GetSampleImage()).ToByteArray(),
+            });
+            Add(new AppointmentModel
+            {
+                Id = 1,
             });
 
             SaveChanges();

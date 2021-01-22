@@ -36,7 +36,7 @@ namespace Cresce.Core.Tests.Customers
         }
 
         [Test]
-        public void Getting_customers_with_authentication_without_employee_id_throws_exception()
+        public void Getting_customers_with_invalid_authentication_throws_exception()
         {
             var services = MakeService();
 

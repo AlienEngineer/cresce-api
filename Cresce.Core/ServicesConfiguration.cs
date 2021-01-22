@@ -1,3 +1,4 @@
+using Cresce.Core.Appointments;
 using Cresce.Core.Authentication;
 using Cresce.Core.Customers;
 using Cresce.Core.Employees;
@@ -21,6 +22,7 @@ namespace Cresce.Core
             serviceCollection.RegisterModule<EmployeesModule>();
             serviceCollection.RegisterModule<ServicesModule>();
             serviceCollection.RegisterModule<CustomersModule>();
+            serviceCollection.RegisterModule<AppointmentsModule>();
             serviceCollection.AddTransient<ILoginService, LoginService>();
             serviceCollection.AddTransient<IOrganizationService, OrganizationService>();
             serviceCollection.AddTransient<IAuthorizationFactory, AuthorizationFactory>();

@@ -1,7 +1,9 @@
+using Cresce.Core.Appointments;
 using Cresce.Core.Customers;
 using Cresce.Core.Employees.GetEmployees;
 using Cresce.Core.Organizations;
 using Cresce.Core.Services;
+using Cresce.Core.Sql.Appointments;
 using Cresce.Core.Sql.Customers;
 using Cresce.Core.Sql.Employees;
 using Cresce.Core.Sql.GetEntities;
@@ -23,6 +25,12 @@ namespace Cresce.Core.Sql
             RegisterEmployeeGateways(serviceCollection);
             RegisterServiceGateways(serviceCollection);
             RegisterCustomerGateways(serviceCollection);
+            RegisterAppointmentsGateways(serviceCollection);
+        }
+
+        private static void RegisterAppointmentsGateways(IServiceCollection serviceCollection)
+        {
+            RegisterGetEntities<AppointmentModel, Appointment>(serviceCollection);
         }
 
         public static void RegisterDbContext(IServiceCollection serviceCollection, string connectionString)
