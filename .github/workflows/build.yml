@@ -31,9 +31,20 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
-    #- name: Bump versions
-    #  run: ./bump-version.sh
-    #
-    #- uses: stefanzweifel/git-auto-commit-action@v4
-    #  with:
-    #    commit_message: Bump Version
+    - name: Bump versions
+      run: ./bump-version.sh
+
+    - name: get version
+      id: version
+      uses: notiz-dev/github-action-json-property@release
+      with:
+        path: 'Cresce.Api/appsettings.json'
+        prop_path: 'version'
+
+    - run: echo ${{steps.version.outputs.prop}}
+
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Bump Version
+        branch: master
+        tagging_message: 'v${{steps.version.outputs.prop}}'
