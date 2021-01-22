@@ -31,9 +31,9 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
-    - name: Bump versions
-      run: ./bump-version.sh
-
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Bump Version
+    #- name: Bump versions
+    #  run: ./bump-version.sh
+    #
+    #- uses: stefanzweifel/git-auto-commit-action@v4
+    #  with:
+    #    commit_message: Bump Version
