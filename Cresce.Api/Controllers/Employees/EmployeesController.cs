@@ -18,7 +18,8 @@ namespace Cresce.Api.Controllers.Employees
         public EmployeesController(IEmployeeService service) => _service = service;
 
         [HttpGet("organization/{organization}/[controller]")]
-        public async Task<IEnumerable<EmployeeModel>> GetEmployees([FromHeader] IAuthorization user, string organization)
+        public async Task<IEnumerable<EmployeeModel>> GetEmployees([FromHeader] IAuthorization user,
+            string organization)
         {
             return (await _service.GetEmployees(user, organization))
                 .Select(employee => new EmployeeModel(employee));
@@ -36,7 +37,5 @@ namespace Cresce.Api.Controllers.Employees
                 Token = authorization.ToString()!
             });
         }
-
-
     }
 }

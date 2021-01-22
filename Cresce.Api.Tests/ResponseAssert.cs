@@ -8,7 +8,7 @@ namespace Cresce.Api.Tests
     public static class ResponseAssert
     {
         public static async Task ListAreEquals<T>(T expect, HttpResponseMessage response)
-            where T: IEnumerable
+            where T : IEnumerable
         {
             CollectionAssert.AreEqual(expect, await response.GetContent<T>());
         }

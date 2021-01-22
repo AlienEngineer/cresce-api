@@ -7,7 +7,6 @@ namespace Cresce.Core.Tests.Employees
 {
     public class LoginEmployeeServiceTests : ServicesTests<IEmployeeService>
     {
-
         [Test]
         public async Task Valid_employee_pin_returns_employee_token()
         {
@@ -15,7 +14,7 @@ namespace Cresce.Core.Tests.Employees
 
             var authorization = await service.ValidatePin(
                 GetAuthorization(),
-                new EmployeePin { EmployeeId = "Ricardo Nunes", Pin = "1234" }
+                new EmployeePin {EmployeeId = "Ricardo Nunes", Pin = "1234"}
             );
 
             Assert.That(authorization, Is.Not.Null);
@@ -30,7 +29,7 @@ namespace Cresce.Core.Tests.Employees
 
             var authorization = await service.ValidatePin(
                 GetAuthorization(),
-                new EmployeePin { EmployeeId = "Ricardo Nunes", Pin = "4321" }
+                new EmployeePin {EmployeeId = "Ricardo Nunes", Pin = "4321"}
             );
 
             Assert.That(authorization, Is.Not.Null);
@@ -44,7 +43,7 @@ namespace Cresce.Core.Tests.Employees
 
             var authorization = await service.ValidatePin(
                 GetAuthorization(),
-                new EmployeePin { EmployeeId = "Unknown employee", Pin = "1234" }
+                new EmployeePin {EmployeeId = "Unknown employee", Pin = "1234"}
             );
 
             Assert.That(authorization, Is.Not.Null);

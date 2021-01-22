@@ -26,8 +26,8 @@ namespace Cresce.Core.Authentication
         {
             var user = await _gateway.GetById(credentials.UserId);
             return credentials.Verify(user)
-                    ? _authorizationFactory.MakeAuthorization(user)
-                    : _authorizationFactory.MakeExpiredAuthorization();
+                ? _authorizationFactory.MakeAuthorization(user)
+                : _authorizationFactory.MakeExpiredAuthorization();
         }
     }
 }

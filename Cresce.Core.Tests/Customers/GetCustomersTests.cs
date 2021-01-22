@@ -14,7 +14,7 @@ namespace Cresce.Core.Tests.Customers
 
             var entities = await services.GetCustomers(GetEmployeeAuthorization());
 
-            CollectionAssert.AreEqual(new []
+            CollectionAssert.AreEqual(new[]
             {
                 new Customer
                 {

@@ -32,10 +32,7 @@ namespace Cresce.Core.Sql
 
         public static void RegisterDbContext(IServiceCollection serviceCollection, string connectionString)
         {
-            serviceCollection.AddDbContext<CresceContext>(builder =>
-            {
-                builder.UseSqlServer(connectionString);
-            });
+            serviceCollection.AddDbContext<CresceContext>(builder => { builder.UseSqlServer(connectionString); });
         }
 
         private static void RegisterEmployeeGateways(IServiceCollection serviceCollection)
@@ -53,7 +50,8 @@ namespace Cresce.Core.Sql
         private static void RegisterCrudOperations<TEntityModel, TEntity>(IServiceCollection serviceCollection)
             where TEntityModel : class, IUnwrap<TEntity>, IWrap<TEntity>, new()
         {
-            serviceCollection.AddTransient<IGetEntityByIdGateway<TEntity>, GetEntityByIdGateway<TEntityModel, TEntity>>();
+            serviceCollection
+                .AddTransient<IGetEntityByIdGateway<TEntity>, GetEntityByIdGateway<TEntityModel, TEntity>>();
             serviceCollection.AddTransient<IGetEntitiesGateway<TEntity>, GetEntitiesGateway<TEntityModel, TEntity>>();
             serviceCollection
                 .AddTransient<IGetEntitiesQuery<TEntityModel, TEntity>, GetEntitiesQuery<TEntityModel, TEntity>>();

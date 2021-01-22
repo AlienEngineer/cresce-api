@@ -10,7 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace System.Runtime.CompilerServices
 {
-    public class IsExternalInit{}
+    public class IsExternalInit
+    {
+    }
 }
 
 namespace Cresce.Core
@@ -32,7 +34,8 @@ namespace Cresce.Core
 
     public static class ServiceCollectionExtensions
     {
-        public static void RegisterModule<TModule>(this IServiceCollection serviceCollection) where TModule : IServicesModule, new()
+        public static void RegisterModule<TModule>(this IServiceCollection serviceCollection)
+            where TModule : IServicesModule, new()
         {
             new TModule().RegisterServices(serviceCollection);
         }

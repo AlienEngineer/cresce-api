@@ -8,7 +8,7 @@ namespace Cresce.Api.Tests.Controllers.EmployeeScope
 
         public override CustomerModel[] GetExpectedList()
         {
-            return new []
+            return new[]
             {
                 new CustomerModel
                 {

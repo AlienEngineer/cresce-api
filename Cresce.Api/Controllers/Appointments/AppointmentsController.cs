@@ -22,6 +22,5 @@ namespace Cresce.Api.Controllers.Appointments
             return (await _service.GetAppointments(authorization))
                 .Select(entity => new AppointmentModel(entity));
         }
-
     }
 }

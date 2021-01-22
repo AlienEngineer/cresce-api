@@ -22,6 +22,5 @@ namespace Cresce.Api.Controllers.Services
             return (await _service.GetServices(authorization))
                 .Select(entity => new ServiceModel(entity));
         }
-
     }
 }

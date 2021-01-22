@@ -6,7 +6,7 @@ namespace Cresce.Core.Employees.GetEmployees
     {
         public string Name { get; init; } = string.Empty;
         public string Title { get; init; } = string.Empty;
-        public Image Image { get; init; } = new ();
+        public Image Image { get; init; } = new();
         public string Pin { get; init; } = string.Empty;
 
         public bool Verify(EmployeePin employeePin)
@@ -15,4 +15,3 @@ namespace Cresce.Core.Employees.GetEmployees
         }
     }
 }
-

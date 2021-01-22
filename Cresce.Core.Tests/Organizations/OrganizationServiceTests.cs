@@ -16,7 +16,7 @@ namespace Cresce.Core.Tests.Organizations
 
             CollectionAssert.AreEqual(new[]
             {
-                new Organization { Name = "myOrganization" }
+                new Organization {Name = "myOrganization"}
             }, entities);
         }
 
@@ -39,7 +39,5 @@ namespace Cresce.Core.Tests.Organizations
                 service.GetOrganizations(GetExpiredAuthorization())
             );
         }
-
     }
-
 }

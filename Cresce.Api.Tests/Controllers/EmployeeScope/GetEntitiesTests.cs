@@ -60,7 +60,6 @@ namespace Cresce.Api.Tests.Controllers.EmployeeScope
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
         }
-
     }
 
     public abstract class ControllerRequests<TEntity>

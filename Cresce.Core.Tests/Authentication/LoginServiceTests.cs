@@ -65,6 +65,5 @@ namespace Cresce.Core.Tests.Authentication
 
             Assert.That(token.IsExpired, Is.True);
         }
-
     }
 }

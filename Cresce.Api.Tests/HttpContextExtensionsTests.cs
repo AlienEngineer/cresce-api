@@ -6,7 +6,6 @@ using NUnit.Framework;
 
 namespace Cresce.Api.Tests
 {
-
     public class HttpContextExtensionsTests : WebApiTests
     {
         [TestCase("bearer token")]

@@ -6,6 +6,7 @@ namespace Cresce.Api.Tests.Controllers.EmployeeScope
     internal class AppointmentsRequests : ControllerRequests<AppointmentModel>
     {
         public override string EntitiesUrl => "api/v1/appointments";
+
         public override AppointmentModel[] GetExpectedList()
         {
             return new[]

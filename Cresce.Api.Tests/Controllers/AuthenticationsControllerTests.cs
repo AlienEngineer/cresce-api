@@ -8,7 +8,6 @@ namespace Cresce.Api.Tests.Controllers
 {
     public class AuthenticationsControllerTests : WebApiTests
     {
-
         [Test]
         public async Task Verifying_valid_login_credentials_returns_200()
         {
@@ -34,6 +33,5 @@ namespace Cresce.Api.Tests.Controllers
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
         }
-
     }
 }

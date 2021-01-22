@@ -67,6 +67,7 @@ namespace Cresce.Core.Authentication
         }
 
         public string EmployeeId => GetClaim(ClaimTypes.UserData).Value;
+
         public void EnsureIsValid()
         {
             if (string.IsNullOrEmpty(EmployeeId))

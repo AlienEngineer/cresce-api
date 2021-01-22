@@ -20,6 +20,5 @@ namespace Cresce.Core.Sql.Organizations
 
         public Task<IEnumerable<Organization>> GetOrganizations(string userid) =>
             _entitiesQuery.GetEntities(filter: e => e.UserId == userid);
-
     }
 }

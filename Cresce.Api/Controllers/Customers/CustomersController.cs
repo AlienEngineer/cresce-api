@@ -22,6 +22,5 @@ namespace Cresce.Api.Controllers.Customers
             return (await _service.GetCustomers(authorization))
                 .Select(entity => new CustomerModel(entity));
         }
-
     }
 }

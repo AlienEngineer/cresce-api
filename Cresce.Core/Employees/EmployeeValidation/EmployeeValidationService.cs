@@ -9,7 +9,8 @@ namespace Cresce.Core.Employees.EmployeeValidation
         private readonly IGetEntityByIdGateway<Employee> _gateway;
         private readonly IAuthorizationFactory _authorizationFactory;
 
-        public EmployeeValidationService(IGetEntityByIdGateway<Employee> gateway, IAuthorizationFactory authorizationFactory)
+        public EmployeeValidationService(IGetEntityByIdGateway<Employee> gateway,
+            IAuthorizationFactory authorizationFactory)
         {
             _gateway = gateway;
             _authorizationFactory = authorizationFactory;

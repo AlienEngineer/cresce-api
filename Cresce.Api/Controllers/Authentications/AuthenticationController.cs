@@ -15,7 +15,8 @@ namespace Cresce.Api.Controllers.Authentications
         [HttpPost]
         public async Task<IActionResult> Login(CredentialsDto credentials)
         {
-            var authorization = await _loginService.ValidateCredentials(new Credentials(credentials.User, credentials.Password));
+            var authorization =
+                await _loginService.ValidateCredentials(new Credentials(credentials.User, credentials.Password));
 
             if (authorization.IsExpired) return Unauthorized();
 
@@ -26,5 +27,4 @@ namespace Cresce.Api.Controllers.Authentications
             });
         }
     }
-
 }

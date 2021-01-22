@@ -15,7 +15,7 @@ namespace Cresce.Api.Tests.Controllers
             var response = await client.GetAsync("api/v1/organizations");
 
             await ResponseAssert.ListAreEquals(
-                new [] { new Organization { Name = "myOrganization" } },
+                new[] {new Organization {Name = "myOrganization"}},
                 response
             );
         }

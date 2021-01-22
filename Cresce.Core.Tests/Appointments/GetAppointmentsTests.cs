@@ -15,7 +15,7 @@ namespace Cresce.Core.Tests.Appointments
 
             var entities = await services.GetAppointments(GetEmployeeAuthorization());
 
-            CollectionAssert.AreEqual(new []
+            CollectionAssert.AreEqual(new[]
             {
                 new Appointment
                 {

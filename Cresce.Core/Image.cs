@@ -17,7 +17,9 @@ namespace Cresce.Core
             _imageBytes = imageBytes;
         }
 
-        public Image() : this(new byte[0]) { }
+        public Image() : this(new byte[0])
+        {
+        }
 
         public byte[] ToByteArray() => _imageBytes;
         public string ToBase64() => Convert.ToBase64String(_imageBytes, Base64FormattingOptions.None);

@@ -17,5 +17,4 @@ namespace Cresce.Core.Users
     {
         public override string Role => "Unknown";
     }
-
 }

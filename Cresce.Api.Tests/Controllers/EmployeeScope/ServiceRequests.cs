@@ -2,13 +2,13 @@ using Cresce.Api.Models;
 
 namespace Cresce.Api.Tests.Controllers.EmployeeScope
 {
-    public class ServiceRequests: ControllerRequests<ServiceModel>
+    public class ServiceRequests : ControllerRequests<ServiceModel>
     {
         public override string EntitiesUrl => "api/v1/services";
 
         public override ServiceModel[] GetExpectedList()
         {
-            return new []
+            return new[]
             {
                 new ServiceModel
                 {
