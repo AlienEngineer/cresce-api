@@ -1,18 +1,18 @@
 ﻿using System.Threading.Tasks;
+using Cresce.Core.Sql.GetEntities;
 using Cresce.Core.Users;
 
 namespace Cresce.Core.Sql.Users
 {
     internal class GetUserGateway : IGetUserGateway
     {
-        private readonly CresceContext _context;
+        private readonly IGetEntityById<User> _getById;
 
-        public GetUserGateway(CresceContext context) => _context = context;
-
-        public async Task<User> GetUser(string user)
+        public GetUserGateway(IGetEntityById<User> getById)
         {
-            var userModel = await _context.FindAsync<UserModel>(user) ?? new UserModel();
-            return userModel.Unwrap();
+            _getById = getById;
         }
+
+        public Task<User> GetUser(string user) =>  _getById.GetById(user);
     }
 }

@@ -27,7 +27,10 @@ namespace Cresce.Core.Sql
 
         public static void RegisterDbContext(IServiceCollection serviceCollection, string connectionString)
         {
-            serviceCollection.AddDbContext<CresceContext>(builder => { builder.UseSqlServer(connectionString); });
+            serviceCollection.AddDbContext<CresceContext>(builder =>
+            {
+                builder.UseSqlServer(connectionString);
+            });
         }
 
         private static void RegisterCustomerGateways(IServiceCollection serviceCollection)
@@ -65,6 +68,5 @@ namespace Cresce.Core.Sql
             serviceCollection
                 .AddTransient<IGetEntitiesQuery<TEntityModel, TEntity>, GetEntitiesQuery<TEntityModel, TEntity>>();
         }
-
     }
 }
