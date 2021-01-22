@@ -57,6 +57,7 @@ namespace Cresce.Core.Sql
 
         private static void RegisterUserGateways(IServiceCollection serviceCollection)
         {
+            RegisterGetEntities<UserModel, User>(serviceCollection);
             serviceCollection.AddTransient<IGetUserGateway, GetUserGateway>();
         }
 
