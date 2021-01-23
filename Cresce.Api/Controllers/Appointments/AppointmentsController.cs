@@ -17,10 +17,20 @@ namespace Cresce.Api.Controllers.Appointments
         public AppointmentsController(IAppointmentServices service) => _service = service;
 
         [HttpGet]
-        public async Task<IEnumerable<AppointmentModel>> GetCustomers([FromHeader] IEmployeeAuthorization authorization)
+        public async Task<IEnumerable<AppointmentModel>> GetAppointments(
+            [FromHeader] IEmployeeAuthorization authorization)
         {
             return (await _service.GetAppointments(authorization))
                 .Select(entity => new AppointmentModel(entity));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAppointment(
+            [FromHeader] IEmployeeAuthorization authorization,
+            NewAppointmentModel appointment)
+        {
+             await _service.CreateAppointment(appointment.Unwrap(), authorization);
+             return Created("api/v1/appointment/SomeIdHere", appointment);
         }
     }
 }
