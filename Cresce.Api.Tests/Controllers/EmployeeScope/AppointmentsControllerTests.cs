@@ -14,7 +14,7 @@ namespace Cresce.Api.Tests.Controllers.EmployeeScope
         {
             var client = await GetAuthenticatedEmployeeClient();
 
-            var response =  await client.PostAsJsonAsync(
+            var response = await client.PostAsJsonAsync(
                 "api/v1/appointments",
                 new NewAppointmentModel
                 {
