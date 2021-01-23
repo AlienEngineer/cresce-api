@@ -2,7 +2,7 @@ namespace Cresce.Core.Employees.EmployeeValidation
 {
     public record EmployeePin
     {
-        public string EmployeeId { get; init; } = string.Empty;
+        public int EmployeeId { get; init; } = -1;
         public string Pin { get; init; } = string.Empty;
     }
 }

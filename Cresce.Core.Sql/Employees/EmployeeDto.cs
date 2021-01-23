@@ -2,19 +2,21 @@ using Cresce.Core.Employees.GetEmployees;
 
 namespace Cresce.Core.Sql.Employees
 {
-    internal class EmployeeModel : IUnwrap<Employee>, IWrap<Employee>
+    internal class EmployeeDto : IUnwrap<Employee>, IWrap<Employee>, IHaveAutoIdentity
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public byte[] Image { get; set; }
         public string OrganizationId { get; set; }
         public string Pin { get; set; }
+        public string Name { get; set; }
 
         public Employee Unwrap()
         {
             return new Employee
             {
-                Name = Id,
+                Id = Id,
+                Name = Name,
                 Title = Title,
                 Image = new Image(Image),
                 Pin = Pin

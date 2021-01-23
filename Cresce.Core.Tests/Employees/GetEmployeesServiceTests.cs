@@ -19,6 +19,7 @@ namespace Cresce.Core.Tests.Employees
             {
                 new Employee
                 {
+                    Id = 1,
                     Name = "Ricardo Nunes",
                     Title = "Engineer",
                     Image = GetSampleImage(),

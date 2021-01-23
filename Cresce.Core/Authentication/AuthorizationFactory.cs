@@ -41,7 +41,7 @@ namespace Cresce.Core.Authentication
             return new UserAuthorization((JwtSecurityToken) token, _gateway);
         }
 
-        public IEmployeeAuthorization GetAuthorizedEmployee(IAuthorization user, string employeeId)
+        public IEmployeeAuthorization GetAuthorizedEmployee(IAuthorization user, int employeeId)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(
@@ -62,7 +62,7 @@ namespace Cresce.Core.Authentication
         private SecurityTokenDescriptor MakeDescriptor(
             User user,
             DateTime? dateTime = null,
-            string? employeeId = null
+            int? employeeId = null
         )
         {
             return new()
@@ -71,7 +71,7 @@ namespace Cresce.Core.Authentication
                 {
                     new Claim(ClaimTypes.Name, user.Id),
                     new Claim(ClaimTypes.Role, user.Role),
-                    new Claim(ClaimTypes.UserData, employeeId ?? "")
+                    new Claim(ClaimTypes.UserData, (employeeId ?? -1).ToString())
                 }),
                 Expires = GetExpirationDate(dateTime),
                 SigningCredentials = new SigningCredentials(

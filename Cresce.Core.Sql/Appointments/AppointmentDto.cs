@@ -3,7 +3,7 @@ using Cresce.Core.Appointments;
 
 namespace Cresce.Core.Sql.Appointments
 {
-    internal class AppointmentModel : IUnwrap<Appointment>, IWrap<Appointment>
+    internal class AppointmentDto : IUnwrap<Appointment>, IWrap<Appointment>, IHaveAutoIdentity
     {
         public int Id { get; set; }
         public DateTime StartedAt { get; set; }

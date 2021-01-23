@@ -21,13 +21,14 @@ namespace Cresce.Core.Sql
     {
         public static void RegisterServices(IServiceCollection serviceCollection)
         {
-            RegisterCrudOperations<UserModel, User>(serviceCollection);
             RegisterOrganizationGateways(serviceCollection);
             RegisterEmployeeGateways(serviceCollection);
 
-            RegisterCrudOperations<ServiceModel, Service>(serviceCollection);
-            RegisterCrudOperations<CustomerModel, Customer>(serviceCollection);
-            RegisterCrudOperations<AppointmentModel, Appointment>(serviceCollection);
+            RegisterReadOperations<UserDto, User>(serviceCollection);
+            RegisterReadOperations<ServiceDto, Service>(serviceCollection);
+            RegisterReadOperations<CustomerDto, Customer>(serviceCollection);
+            RegisterReadOperations<AppointmentDto, Appointment>(serviceCollection);
+            RegisterCreateOperations<AppointmentDto, Appointment>(serviceCollection);
         }
 
         public static void RegisterDbContext(IServiceCollection serviceCollection, string connectionString)
@@ -37,26 +38,30 @@ namespace Cresce.Core.Sql
 
         private static void RegisterEmployeeGateways(IServiceCollection serviceCollection)
         {
-            RegisterCrudOperations<EmployeeModel, Employee>(serviceCollection);
+            RegisterReadOperations<EmployeeDto, Employee>(serviceCollection);
             serviceCollection.AddTransient<IGetEmployeesGateway, GetEmployeesGateway>();
         }
 
         private static void RegisterOrganizationGateways(IServiceCollection serviceCollection)
         {
-            RegisterCrudOperations<OrganizationModel, Organization>(serviceCollection);
+            RegisterReadOperations<OrganizationDto, Organization>(serviceCollection);
             serviceCollection.AddTransient<IGetUserOrganizationsGateway, GetUserOrganizationsGateway>();
         }
 
-        private static void RegisterCrudOperations<TEntityModel, TEntity>(IServiceCollection serviceCollection)
-            where TEntityModel : class, IUnwrap<TEntity>, IWrap<TEntity>, new()
+        private static void RegisterCreateOperations<TEntityDto, TEntity>(IServiceCollection serviceCollection)
+            where TEntityDto : class, IUnwrap<TEntity>, IWrap<TEntity>, IHaveAutoIdentity, new()
+        {
+            serviceCollection.AddTransient<ICreateEntityGateway<TEntity>, CreateEntityGateway<TEntityDto, TEntity>>();
+        }
+
+        private static void RegisterReadOperations<TEntityDto, TEntity>(IServiceCollection serviceCollection)
+            where TEntityDto : class, IUnwrap<TEntity>, IWrap<TEntity>, new()
         {
             serviceCollection
-                .AddTransient<IGetEntityByIdGateway<TEntity>, GetEntityByIdGateway<TEntityModel, TEntity>>();
-            serviceCollection.AddTransient<IGetEntitiesGateway<TEntity>, GetEntitiesGateway<TEntityModel, TEntity>>();
+                .AddTransient<IGetEntityByIdGateway<TEntity>, GetEntityByIdGateway<TEntityDto, TEntity>>();
+            serviceCollection.AddTransient<IGetEntitiesGateway<TEntity>, GetEntitiesGateway<TEntityDto, TEntity>>();
             serviceCollection
-                .AddTransient<IGetEntitiesQuery<TEntityModel, TEntity>, GetEntitiesQuery<TEntityModel, TEntity>>();
-
-            serviceCollection.AddTransient<ICreateEntityGateway<TEntity>, CreateEntityGateway<TEntityModel, TEntity>>();
+                .AddTransient<IGetEntitiesQuery<TEntityDto, TEntity>, GetEntitiesQuery<TEntityDto, TEntity>>();
         }
     }
 }

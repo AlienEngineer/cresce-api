@@ -7,20 +7,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cresce.Core.Sql.GetEntities
 {
-    internal class GetEntitiesQuery<TEntityModel, TEntity> : IGetEntitiesQuery<TEntityModel, TEntity>
-        where TEntityModel : class, IUnwrap<TEntity>
+    internal class GetEntitiesQuery<TEntityDto, TEntity> : IGetEntitiesQuery<TEntityDto, TEntity>
+        where TEntityDto : class, IUnwrap<TEntity>
     {
         private readonly CresceContext _context;
 
         public GetEntitiesQuery(CresceContext context) => _context = context;
 
         public async Task<IEnumerable<TEntity>> GetEntities(
-            Expression<Func<TEntityModel, bool>> filter = null
+            Expression<Func<TEntityDto, bool>> filter = null
         )
         {
             filter ??= model => true;
             var models = await _context
-                .Set<TEntityModel>()
+                .Set<TEntityDto>()
                 .Where(filter)
                 .ToListAsync();
 

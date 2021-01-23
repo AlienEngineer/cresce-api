@@ -2,7 +2,7 @@ using Cresce.Core.Customers;
 
 namespace Cresce.Core.Sql.Customers
 {
-    internal class CustomerModel : IUnwrap<Customer>, IWrap<Customer>
+    internal class CustomerDto : IUnwrap<Customer>, IWrap<Customer>, IHaveAutoIdentity
     {
         public int Id { get; set; }
         public string Name { get; set; }

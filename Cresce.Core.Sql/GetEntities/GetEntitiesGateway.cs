@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cresce.Core.Sql.GetEntities
 {
-    internal class GetEntitiesGateway<TEntityModel, TEntity>
-        : IGetEntitiesGateway<TEntity> where TEntityModel : class, IUnwrap<TEntity>
+    internal class GetEntitiesGateway<TEntityDto, TEntity>
+        : IGetEntitiesGateway<TEntity> where TEntityDto : class, IUnwrap<TEntity>
     {
         private readonly CresceContext _context;
 
@@ -18,6 +18,6 @@ namespace Cresce.Core.Sql.GetEntities
                 .Select(e => e.Unwrap());
         }
 
-        private IQueryable<TEntityModel> MakeQuery() => _context.Set<TEntityModel>();
+        private IQueryable<TEntityDto> MakeQuery() => _context.Set<TEntityDto>();
     }
 }

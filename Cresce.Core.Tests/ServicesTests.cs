@@ -60,7 +60,7 @@ namespace Cresce.Core.Tests
             var factory = GetService<IAuthorizationFactory>();
             return factory.GetAuthorizedEmployee(
                 factory.MakeAuthorization(new AdminUser {Id = "myUser"}),
-                "Ricardo Nunes"
+                1
             );
         }
 
@@ -69,7 +69,7 @@ namespace Cresce.Core.Tests
             var factory = GetService<IAuthorizationFactory>();
             return factory.GetAuthorizedEmployee(
                 factory.MakeAuthorization(new AdminUser {Id = "myUser"}),
-                string.Empty
+                -1
             );
         }
 

@@ -7,9 +7,9 @@ namespace Cresce.Core.Sql.Employees
 {
     internal class GetEmployeesGateway : IGetEmployeesGateway
     {
-        private readonly IGetEntitiesQuery<EmployeeModel, Employee> _entitiesQuery;
+        private readonly IGetEntitiesQuery<EmployeeDto, Employee> _entitiesQuery;
 
-        public GetEmployeesGateway(IGetEntitiesQuery<EmployeeModel, Employee> entitiesQuery) =>
+        public GetEmployeesGateway(IGetEntitiesQuery<EmployeeDto, Employee> entitiesQuery) =>
             _entitiesQuery = entitiesQuery;
 
         public Task<IEnumerable<Employee>> GetEmployees(string organizationId) =>
