@@ -9,7 +9,7 @@ namespace Cresce.Core.Authentication
         IEmployeeAuthorization DecodeEmployeeAuthorization(string token);
         IAuthorization MakeAuthorization(User user, DateTime? dateTime = null);
         IAuthorization MakeExpiredAuthorization();
-        IEmployeeAuthorization GetAuthorizedEmployee(IAuthorization user, string employeeId);
+        IEmployeeAuthorization GetAuthorizedEmployee(IAuthorization user, int employeeId);
         IEmployeeAuthorization MakeExpiredEmployeeAuthorization();
     }
 }

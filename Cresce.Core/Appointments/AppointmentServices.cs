@@ -22,10 +22,19 @@ namespace Cresce.Core.Appointments
         public Task<IEnumerable<Appointment>> GetAppointments(IEmployeeAuthorization authorization)
             => _getEntitiesGateway.GetEntities(authorization);
 
-        public Task CreateAppointment(Appointment appointment, IEmployeeAuthorization authorization)
+        public async Task<Appointment> CreateAppointment(Appointment appointment, IEmployeeAuthorization authorization)
         {
             authorization.EnsureIsValid();
-            return _createEntityGateway.Create(appointment);
+
+            appointment = appointment with
+            {
+                EmployeeId = authorization.EmployeeId
+            };
+
+            return appointment with
+            {
+                Id = await _createEntityGateway.Create(appointment)
+            };
         }
     }
 }

@@ -4,6 +4,6 @@ namespace Cresce.Core.Appointments
 {
     public interface ICreateEntityGateway<in TEntity>
     {
-        Task Create(TEntity entity);
+        Task<int> Create(TEntity entity);
     }
 }

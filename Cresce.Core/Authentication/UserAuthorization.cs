@@ -55,7 +55,7 @@ namespace Cresce.Core.Authentication
 
     public interface IEmployeeAuthorization : IAuthorization
     {
-        string EmployeeId { get; }
+        int EmployeeId { get; }
         void EnsureIsValid();
     }
 
@@ -66,11 +66,11 @@ namespace Cresce.Core.Authentication
         {
         }
 
-        public string EmployeeId => GetClaim(ClaimTypes.UserData).Value;
+        public int EmployeeId => int.Parse(GetClaim(ClaimTypes.UserData).Value);
 
         public void EnsureIsValid()
         {
-            if (string.IsNullOrEmpty(EmployeeId))
+            if (EmployeeId <= 0)
             {
                 throw new UnauthorizedException("Authorization has expired.");
             }

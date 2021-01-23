@@ -29,8 +29,13 @@ namespace Cresce.Api.Controllers.Appointments
             [FromHeader] IEmployeeAuthorization authorization,
             NewAppointmentModel appointment)
         {
-             await _service.CreateAppointment(appointment.Unwrap(), authorization);
-             return Created("api/v1/appointment/SomeIdHere", appointment);
+            var newAppointment = await _service.CreateAppointment(appointment.Unwrap(), authorization);
+            return Created(
+                $"api/v1/appointment/{newAppointment.Id}",
+                new AppointmentModel(
+                    newAppointment
+                )
+            );
         }
     }
 }

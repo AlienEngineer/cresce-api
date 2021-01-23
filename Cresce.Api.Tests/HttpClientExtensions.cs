@@ -24,7 +24,7 @@ namespace Cresce.Api.Tests
         {
             var response = await client.PostAsJsonAsync("/api/v1/employees/", new EmployeePin
             {
-                EmployeeId = "Ricardo Nunes",
+                EmployeeId = 1,
                 Pin = "1234"
             });
 

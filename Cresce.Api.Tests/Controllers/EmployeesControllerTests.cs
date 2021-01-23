@@ -48,7 +48,7 @@ namespace Cresce.Api.Tests.Controllers
 
             var response = await client.PostAsJsonAsync(
                 "/api/v1/employees",
-                new EmployeePin {EmployeeId = "Ricardo Nunes", Pin = "1234"}
+                new EmployeePin {EmployeeId = 1, Pin = "1234"}
             );
 
             response.EnsureSuccessStatusCode();
@@ -65,7 +65,7 @@ namespace Cresce.Api.Tests.Controllers
 
             var response = await client.PostAsJsonAsync("/api/v1/employees", new EmployeePin
             {
-                EmployeeId = "Ricardo Nunes",
+                EmployeeId = 1,
                 Pin = "12342"
             });
 

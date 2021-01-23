@@ -9,10 +9,10 @@ namespace Cresce.Core.Sql.Organizations
 {
     internal class GetUserOrganizationsGateway : IGetUserOrganizationsGateway
     {
-        private readonly IGetEntitiesQuery<OrganizationModel, Organization> _entitiesQuery;
+        private readonly IGetEntitiesQuery<OrganizationDto, Organization> _entitiesQuery;
 
         public GetUserOrganizationsGateway(
-            IGetEntitiesQuery<OrganizationModel, Organization> entitiesQuery
+            IGetEntitiesQuery<OrganizationDto, Organization> entitiesQuery
         )
         {
             _entitiesQuery = entitiesQuery;
