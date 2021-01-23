@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 
 namespace Cresce.Core.Sql.GetEntities
 {
-    internal class GetEntityByIdGateway<TEntityDto, TEntity> : IGetEntityByIdGateway<TEntity>
-        where TEntityDto : class, IUnwrap<TEntity>, new()
+    internal class GetEntityByIdGateway<TEntityModel, TEntity> : IGetEntityByIdGateway<TEntity>
+        where TEntityModel : class, IUnwrap<TEntity>, new()
     {
         private readonly CresceContext _context;
 
@@ -11,7 +11,7 @@ namespace Cresce.Core.Sql.GetEntities
 
         public async Task<TEntity> GetById(params object[] keyValues)
         {
-            var model = await _context.Set<TEntityDto>().FindAsync(keyValues) ?? new TEntityDto();
+            var model = await _context.Set<TEntityModel>().FindAsync(keyValues) ?? new TEntityModel();
             return model.Unwrap();
         }
     }
