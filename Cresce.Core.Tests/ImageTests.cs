@@ -30,7 +30,7 @@ namespace Cresce.Core.Tests
         [Test]
         public void Null_byte_array_returns_empty_base64()
         {
-            var imageBase64 = new Image((byte[])null);
+            var imageBase64 = new Image((byte[]) null);
 
             Assert.That(imageBase64.ToBase64(), Is.EqualTo(string.Empty));
         }
