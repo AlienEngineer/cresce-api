@@ -7,14 +7,16 @@ namespace Cresce.Core
     {
         private readonly byte[] _imageBytes;
 
-        public Image(string base64)
+        public Image(string? base64)
         {
-            _imageBytes = Convert.FromBase64String(base64);
+            _imageBytes = base64 == null
+                ? new byte[0]
+                : Convert.FromBase64String(base64);
         }
 
-        public Image(byte[] imageBytes)
+        public Image(byte[]? imageBytes)
         {
-            _imageBytes = imageBytes;
+            _imageBytes = imageBytes ?? new byte[0];
         }
 
         public Image() : this(new byte[0])
